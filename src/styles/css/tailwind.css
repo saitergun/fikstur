@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ReactVirtualized__Grid.ReactVirtualized__List {
+  outline: none !important;
+  will-change: auto !important;
+}
