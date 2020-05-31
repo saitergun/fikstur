@@ -27,7 +27,7 @@ const FixtureWeekItem = ({ match }) => {
   const awayTeamLogo = require(`../media/teams/logos/120x120/${match.away}.png`);
 
   const date = moment(match.date).format('D MMM — ddd');
-  const time = moment(match.date).format('HH.ss');
+  const time = moment(match.date).format('HH.mm');
 
   return (
     <span className={classnames('w-full flex flex-col space-y-3 p-3')}>

@@ -35,7 +35,7 @@ const MatchScoreEditor = ({ match, setShowScorePopup }) => {
   }, []);
 
   const date = moment(match.date).format('D MMMM dddd');
-  const time = moment(match.date).format('HH.ss');
+  const time = moment(match.date).format('HH.mm');
 
   const homeTeamName = state.data.teams.find((team) => team.id === match.home).name_short;
   const awayTeamName = state.data.teams.find((team) => team.id === match.away).name_short;
