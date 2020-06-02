@@ -26,15 +26,23 @@ const FixtureWeekItem = ({ match }) => {
   const homeTeamLogo = require(`../media/teams/logos/120x120/${match.home}.png`);
   const awayTeamLogo = require(`../media/teams/logos/120x120/${match.away}.png`);
 
-  const date = moment(match.date).format('D MMM — ddd');
-  const time = moment(match.date).format('HH.mm');
+  const date = match.date && moment(match.date).format('D MMM — ddd');
+  const time = match.date && moment(match.date).format('HH.mm');
 
   return (
     <span className={classnames('w-full flex flex-col space-y-3 p-3')}>
       <span className="flex items-center justify-start">
-        <span
-          className="flex items-center justify-center leading-none text-sm text-gray-500"
-        >{time !== '00.00' ? `${date} ${time}` : date}</span>
+        {date &&
+          <span
+            className="flex items-center justify-center leading-none text-sm text-gray-500"
+          >{time !== '00.00' ? `${date} ${time}` : date}</span>
+        }
+
+        {!date &&
+          <span
+            className="flex items-center justify-center leading-none text-sm text-gray-500"
+          >Resmi tarih bekleniyor</span>
+        }
       </span>
 
       <span className="w-full flex items-center justify-between">

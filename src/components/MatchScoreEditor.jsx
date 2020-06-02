@@ -34,8 +34,8 @@ const MatchScoreEditor = ({ match, setShowScorePopup }) => {
     };
   }, []);
 
-  const date = moment(match.date).format('D MMMM dddd');
-  const time = moment(match.date).format('HH.mm');
+  const date = match.date && moment(match.date).format('D MMMM dddd');
+  const time = match.date && moment(match.date).format('HH.mm');
 
   const homeTeamName = state.data.teams.find((team) => team.id === match.home).name_short;
   const awayTeamName = state.data.teams.find((team) => team.id === match.away).name_short;
@@ -72,8 +72,16 @@ const MatchScoreEditor = ({ match, setShowScorePopup }) => {
 
         <main className="py-4 px-3">
           <section className="flex items-center justify-center">
-            <span className="flex items-center justify-center leading-none text-gray-500"
-            >{time !== '00.00' ? `${date}, ${time}` : date}</span>
+            {date &&
+              <span className="flex items-center justify-center leading-none text-gray-500"
+              >{time !== '00.00' ? `${date}, ${time}` : date}</span>
+            }
+
+            {!date &&
+              <span
+                className="flex items-center justify-center leading-none text-sm text-gray-500"
+              >Resmi tarih bekleniyor</span>
+            }
           </section>
 
           <section className="grid grid-cols-2 divide-x divide-gray-200 mt-5">
