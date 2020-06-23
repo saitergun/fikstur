@@ -65,7 +65,14 @@ const FixtureWeekItem = ({ match }) => {
         </span>
 
         <span className="flex items-center justify-center ml-2">
-          {!userScore &&
+          {!isPlayed && userScore && userScore.length > 0 &&
+            <button
+              className="w-7 h-7 leading-none font-medium text-white text-sm rounded-sm shadow bg-pink-500 cursor-pointer"
+              onClick={() => setShowScorePopup(true)}
+            >{`${userScore[0]}·${userScore[1]}`}</button>
+          }
+
+          {!isPlayed && userScore === null &&
             <button
               disabled={isPlayed}
               className={classnames('w-7 h-7 leading-none font-medium text-white text-sm rounded-sm shadow', {
@@ -74,13 +81,6 @@ const FixtureWeekItem = ({ match }) => {
               })}
               onClick={() => setShowScorePopup(true)}
             >{isPlayed ? `${match.score[0]}·${match.score[1]}` : '+'}</button>
-          }
-
-          {userScore && userScore.length &&
-            <button
-              className="w-7 h-7 leading-none font-medium text-white text-sm rounded-sm shadow bg-pink-500 cursor-pointer"
-              onClick={() => setShowScorePopup(true)}
-            >{`${userScore[0]}·${userScore[1]}`}</button>
           }
 
           {showScorePopup &&
