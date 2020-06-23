@@ -16,7 +16,7 @@ const useTable = ({ season = 20192020, week = 0 }) => {
       played = played.map((match) => {
         const userScore = userScores.find((m) => m.match === match.id);
 
-        if (match.score.length === 0 && userScore) {
+        if (userScore) {
           match.score = userScore.score;
           match.userScore = userScore.score;
         }

@@ -110,7 +110,7 @@ const Team = () => {
                   'border-t border-gray-200': index > 0,
                 })} key={match.id}>
                   <span className="block px-2">
-                    {(!match.userScore || match.score.length > 0) &&
+                    {!match.userScore &&
                       <button
                         disabled={match.score.length > 0}
                         className={classnames('w-8 h-6 leading-none font-medium text-white text-sm rounded-sm shadow', {
@@ -123,7 +123,7 @@ const Team = () => {
                       >{match.score.length > 0 ? `${match.score[0]}·${match.score[1]}` : '+'}</button>
                     }
 
-                    {match.userScore && match.userScore.length > 0 && match.score.length === 0 &&
+                    {match.userScore && match.userScore.length &&
                       <button
                         className={classnames('w-8 h-6 leading-none font-medium text-white text-sm rounded-sm shadow cursor-pointer', {
                           'bg-green-500': match.userScore.length > 0 && ((match.home === id && match.userScore[0] > match.userScore[1]) || (match.away === id && match.userScore[1] > match.userScore[0])),
