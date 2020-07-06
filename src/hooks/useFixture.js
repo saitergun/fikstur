@@ -25,7 +25,7 @@ const useFixture = ({ season = 20192020, week = 100 }) => {
       weeks = weeks.filter((match) => match.week === week);
     }
 
-    setNextWeekIndex(weeks.find((match) => match.score.length === 0).week ?? 0);
+    setNextWeekIndex(weeks.find((match) => match.score.length === 0)?.week ?? 0);
 
     // sort matches by date
     weeks = weeks.sort((a, b) => date2timestamp(a.date) - date2timestamp(b.date));
