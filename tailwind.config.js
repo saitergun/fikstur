@@ -37,8 +37,11 @@ module.exports = {
     borderColor: ['hover', 'active', 'focus'], // ['responsive', 'hover', 'focus']
   },
 
-
   plugins: [
     plugin(utilities),
   ],
+
+  corePlugins: {
+    container: false,
+  }
 }
