@@ -13,11 +13,9 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Store>
-    {/* <React.StrictMode> */}
-      <HashRouter basename='/'>
-        <App />
-      </HashRouter>
-    {/* </React.StrictMode> */}
+    <HashRouter basename='/'>
+      <App />
+    </HashRouter>
   </Store>,
   document.getElementById('root')
 );

@@ -12,7 +12,6 @@ const rootState = {
   data: {
     teams: [],
     matches: [],
-    userScores: [],
   },
 };
 
@@ -34,34 +33,6 @@ const reducer = (state, { type, payload }) => {
       state.data.matches.push(...payload);
 
       return {...state};
-    case 'SET_USER_SCORE':
-      const match = state.data.userScores.find((m) => m.match === payload.match);
-
-      if (match) {
-        if (match.score && match.score.length && !isNaN(match.score[0]) && !isNaN(match.score[1])) {
-          match.score = payload.score;
-        }
-      } else {
-        state.data.userScores.push(payload);
-      }
-
-      setTimeout(() => {
-        localStorage.setItem('fixture-saved:user-scores', JSON.stringify(state.data.userScores));
-      }, 100);
-
-      return {...state};
-    case 'REMOVE_USER_SCORE':
-      const findUserScoreIndex = state.data.userScores.findIndex((m) => m.match === payload);
-      state.data.userScores.splice(findUserScoreIndex, 1);
-      
-      const findMatch = state.data.matches.find((m) => m.id === payload);
-      findMatch.score = [];
-
-      setTimeout(() => {
-        localStorage.setItem('fixture-saved:user-scores', JSON.stringify(state.data.userScores));
-      }, 100);
-
-      return {...state};
     default:
       return state;
   };
@@ -72,10 +43,10 @@ export const StoreContext = React.createContext(rootState);
 
 // create Store
 const Store = (props) => {
-  const [state, dispatch] = React.useReducer(reducer, rootState);
+  const [state, setState] = React.useReducer(reducer, rootState);
 
   return (
-    <StoreContext.Provider value={{ state, dispatch }}>
+    <StoreContext.Provider value={{ state, setState }}>
       { props.children }
     </StoreContext.Provider>
   )

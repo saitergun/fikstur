@@ -6,23 +6,11 @@ const useTable = ({ season = 20192020, week = 0 }) => {
   const [table, setTable] = useState([]);
 
   const { state } = useContext(StoreContext);
-  const { matches, teams, userScores } = state.data;
+  const { matches, teams } = state.data;
 
   useEffect(() => {
     function getTeamPlayedMatches(teamId) {
       let played = matches;
-
-      // add user scores
-      played = played.map((match) => {
-        const userScore = userScores.find((m) => m.match === match.id);
-
-        if (userScore) {
-          match.score = userScore.score;
-          match.userScore = userScore.score;
-        }
-
-        return match;
-      })
 
       // filter by season
       played = played.filter((match) => match.season === season);
@@ -39,7 +27,6 @@ const useTable = ({ season = 20192020, week = 0 }) => {
         home: match.home,
         away: match.away,
         score: match.score,
-        userScore: match.userScore
       }));
 
       return played;
@@ -156,7 +143,7 @@ const useTable = ({ season = 20192020, week = 0 }) => {
     return () => {
       setTable([]);
     };
-  }, [matches, teams, season, week, userScores]);
+  }, [matches, teams, season, week]);
 
   return table;
 }

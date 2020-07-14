@@ -1,28 +1,31 @@
-import React from 'react';
-
-import classnames from 'classnames';
+import React, { useState, useEffect } from 'react';
 
 import FixtureWeekItem from './FixtureWeekItem';
 
-const FixtureWeek = ({ matches }) => {
-  const { week } = matches[0];
+const FixtureWeek = ({ days }) => {
+  const [lastMatchId, setLastMatchId] = useState(null);
+
+  useEffect(() => {
+    const lastDayMatches = days[days.length - 1];
+    const lastDayLastMatch = lastDayMatches[lastDayMatches.length - 1];
+
+    setLastMatchId(lastDayLastMatch.id);
+  }, [days]);
 
   return (
     <section className="bg-white border-t border-b sm:border border-gray-200 sm:rounded">
-      <header className="flex items-center justify-between rounded-t-lg border-b border-gray-200 py-3 px-4">
-        <h3 className="leading-none font-semibold">{week}. Hafta</h3>
+      <header className="border-b border-gray-200 text-lg py-1 px-4">
+        {`${days[0][0].week}. hafta`}
       </header>
 
-      <ul className="grid grid-cols-2">
-        {matches.map((match, index) => 
-          <li className={classnames('border-gray-200', {
-            'border-r': [0, 2, 4, 6, 8].includes(index),
-            'border-b': [0, 1, 2, 3, 4, 5, 6, 7].includes(index),
-          })} key={match.id}>
-            <FixtureWeekItem match={match} />
-          </li>
-        )}
-      </ul>
+      {days.map((matches) => matches.map((match, index) =>
+        <FixtureWeekItem
+          key={match.id}
+          id={match.id}
+          isLastMatch={match.id === lastMatchId}
+          showMatchDate={index === 0 && match.date}
+        />
+      ))}
     </section>
   );
 };

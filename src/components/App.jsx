@@ -12,53 +12,36 @@ import Table from '../pages/Table';
 import Team from '../pages/Team';
 
 const App = () => {
-  const { state, dispatch } = useContext(StoreContext);
+  const { state, setState } = useContext(StoreContext);
 
   const { loading } = state.app;
 
   const { teams, matches } = state.data;
 
-  // set user scores
+  // set matches
   useEffect(() => {
-    const savedScores = localStorage.getItem('fixture-saved:user-scores');
-
-    if (savedScores) {
-      const savedScoresParsed = JSON.parse(savedScores);
-
-      savedScoresParsed.forEach((payload) => {
-        dispatch({ type: 'SET_USER_SCORE', payload, });
+    if (matches.length === 0) {
+      import('../data/matches/20192020').then((response) => {
+        setState({ type: 'PUSH_MATCHES', payload: response.default });
       });
     }
-  }, [dispatch]);
+  }, [setState, matches.length]);
 
   // set teams
   useEffect(() => {
     if (teams.length === 0) {
       import('../data/teams').then((response) => {
-        // console.log("import('../data/teams')");
-
-        dispatch({ type: 'PUSH_TEAMS', payload: response.default, });
+        setState({ type: 'PUSH_TEAMS', payload: response.default });
       });
     }
-  }, [dispatch, teams.length]);
-
-  // set matches
-  useEffect(() => {
-    if (matches.length === 0) {
-      import('../data/matches/20192020').then((response) => {
-        // console.log("import('../data/matches/20192020')");
-
-        dispatch({ type: 'PUSH_MATCHES', payload: response.default, });
-      });
-    }
-  }, [dispatch, matches.length]);
+  }, [setState, teams.length]);
 
   // set app loading status
   useEffect(() => {
     if (teams.length && matches.length) {
-      dispatch({ type: 'SET_APP_LOADING_STATUS', payload: false, });
+      setState({ type: 'SET_APP_LOADING_STATUS', payload: false });
     }
-  }, [dispatch, teams.length, matches.length]);
+  }, [setState, teams.length, matches.length]);
 
   return (
     <>

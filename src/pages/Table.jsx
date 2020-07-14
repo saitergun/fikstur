@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import classnames from 'classnames';
+
+import {StickyTable, Row, Cell} from 'react-sticky-table';
 
 import useTable from '../hooks/useTable';
 
 import AppLoader from '../components/AppLoader';
 
 const PageTable = () => {
-  const [week] = useState(26);
-
   const history = useHistory();
+  const tableRef = useRef();
 
-  const table = useTable({ week });
+  const table = useTable({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,53 +24,64 @@ const PageTable = () => {
   }
 
   return (
-    <div className="sm:max-w-lg overflow-x-scroll no-scrollbar py-4 mx-auto">
-      {table.length > 0 &&
-        <table className="w-full table-auto bg-white border-t border-b sm:border border-gray-200 rounded">
-          <thead className="border-b-2 border-gray-200">
-            <tr>
-              <th colSpan="2" />
-              <th className="px-1 py-4 text-left">TAKIM</th>
-              <th className="px-1 py-4 text-center">P</th>
-              <th className="px-1 py-4 text-center">O</th>
-              <th className="px-1 py-4 text-center">G</th>
-              <th className="px-1 py-4 text-center">B</th>
-              <th className="px-1 py-4 text-center">M</th>
-              <th className="px-1 py-4 text-center">AG</th>
-              <th className="px-1 py-4 text-center">YG</th>
-              <th className="px-1 py-4 text-right pr-3">Av.</th>
-            </tr>
-          </thead>
+    <div className="relative sm:max-w-lg py-4 mx-auto">
 
-          <tbody>
+        <div className="w-full h-auto border-t border-b sm:border border-gray-200 bg-white rounded overflow-hidden">
+          <StickyTable
+            className="league-table"
+            stickyHeaderCount={1}
+            leftStickyColumnCount={1}
+            rightStickyColumnCount={0}
+            stickyFooterCount={0}
+            borderWidth="1px"
+            borderColor="#edf2f7" // gray-200
+            wrapperRef={tableRef}
+          >
+            <Row>
+              <Cell></Cell>
+              <Cell className="font-semibold text-right text-sm">P</Cell>
+              <Cell className="font-semibold text-right text-sm">O</Cell>
+              <Cell className="font-semibold text-right text-sm">G</Cell>
+              <Cell className="font-semibold text-right text-sm">B</Cell>
+              <Cell className="font-semibold text-right text-sm">M</Cell>
+              <Cell className="font-semibold text-right text-sm">AG</Cell>
+              <Cell className="font-semibold text-right text-sm">YG</Cell>
+              <Cell className="font-semibold text-right text-sm">Av.</Cell>
+            </Row>
+
             {table.map((team) =>
-              <tr
-                className={classnames('hover:bg-gray-100 active:bg-gray-100 cursor-pointer', {
-                  'border-t border-gray-200': team.position > 1,
-                })}
+              <Row
                 onClick={() => {history.push(`/team/${team.id}`)}}
                 key={team.position}
               >
-                <td className="px-1 py-2 text-center pl-3">{team.position}</td>
-                <td className="text-center"><img
-                  className="block w-5 max-h-full"
-                  src={require(`../media/teams/logos/120x120/${team.id}.png`)}
-                  alt={team.nameShort}
-                /></td>
-                <td className="px-1 py-2 text-left uppercase">{team.nameShort.slice(0, 4)}</td>
-                <td className="px-1 py-2 text-center font-semibold">{team.countPoints}</td>
-                <td className="px-1 py-2 text-center">{team.countPlayed}</td>
-                <td className="px-1 py-2 text-center">{team.countWon}</td>
-                <td className="px-1 py-2 text-center">{team.countDrawn}</td>
-                <td className="px-1 py-2 text-center">{team.countLost}</td>
-                <td className="px-1 py-2 text-center">{team.countGoalsFor}</td>
-                <td className="px-1 py-2 text-center">{team.countGoalsAgainst}</td>
-                <td className="px-1 py-2 text-right pr-3">{team.countGoalsDifference > 0 ? '+' : ''}{team.countGoalsDifference}</td>
-              </tr>
+                <Cell className="shadow-lg">
+                  <div className="flex items-center space-x-3 pr-2">
+                    <span className="w-5 block text-right font-semibold">{team.position}</span>
+
+                    <span className="w-6 flex items-center justify-center">
+                      <img
+                        className="block w-5 h-5"
+                        src={require(`../media/teams/logos/120x120/${team.id}.png`)}
+                        alt={team.nameShort}
+                      />
+                    </span>
+
+                    <span className="block leading-none">{team.nameShort}</span>
+                  </div>
+                </Cell>
+                <Cell className="text-right font-semibold">{team.countPoints}</Cell>
+                <Cell className="text-right">{team.countPlayed}</Cell>
+                <Cell className="text-right">{team.countWon}</Cell>
+                <Cell className="text-right">{team.countDrawn}</Cell>
+                <Cell className="text-right">{team.countLost}</Cell>
+                <Cell className="text-right">{team.countGoalsFor}</Cell>
+                <Cell className="text-right">{team.countGoalsAgainst}</Cell>
+                <Cell className="text-right">{team.countGoalsDifference > 0 ? `+${team.countGoalsDifference}` : team.countGoalsDifference}</Cell>
+              </Row>
             )}
-          </tbody>
-        </table>
-      }
+          </StickyTable>
+        </div>
+
     </div>
   );
 };

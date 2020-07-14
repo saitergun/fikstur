@@ -1,95 +1,121 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import classnames from 'classnames';
 
-import moment from 'moment';
-import 'moment/locale/tr';
+import dayjs from 'dayjs';
+import isYesterday from 'dayjs/plugin/isYesterday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
+import isToday from 'dayjs/plugin/isToday';
+import 'dayjs/locale/tr';
 
-import { StoreContext } from '../store';
+import useMatch from '../hooks/useMatch';
 
-import useUserScore from '../hooks/useUserScore';
+import MatchModal from './MatchModal';
 
-import MatchScoreEditor from './MatchScoreEditor';
+dayjs.locale('tr');
+dayjs.extend(isYesterday);
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
 
-const FixtureWeekItem = ({ match }) => {
-  const [showScorePopup, setShowScorePopup] = useState(false);
+const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [dayText, setDayText] = useState(null);
 
-  const { state } = useContext(StoreContext);
-  const { teams } = state.data;
+  const match = useMatch(id);
 
-  const userScore = useUserScore(match.id);
+  useEffect(() => {
+    if (match?.date) {
+      if (dayjs(match.date).isYesterday()) {
+        setDayText('Dün');
+      } else if (dayjs(match.date).isToday()) {
+        setDayText('Bugün');
+      } else if (dayjs(match.date).isTomorrow()) {
+        setDayText('Yarın');
+      } else {
+        setDayText(dayjs(match.date).format('dddd / D MMM'));
+      }
+    }
+  }, [match]);
 
-  const isPlayed = match.score.length > 0;
-
-  const homeTeamName = teams.find((team) => team.id === match.home).name_short;
-  const awayTeamName = teams.find((team) => team.id === match.away).name_short;
-
-  const homeTeamLogo = require(`../media/teams/logos/120x120/${match.home}.png`);
-  const awayTeamLogo = require(`../media/teams/logos/120x120/${match.away}.png`);
-
-  const date = match.date && moment(match.date).format('D MMM — ddd');
-  const time = match.date && moment(match.date).format('HH.mm');
+  if (!match) {
+    return null;
+  }
 
   return (
-    <span className={classnames('w-full flex flex-col space-y-3 p-3')}>
-      <span className="flex items-center justify-start">
-        {date &&
-          <span
-            className="flex items-center justify-center leading-none text-sm text-gray-500"
-          >{time !== '00.00' ? `${date} ${time}` : date}</span>
-        }
+    <div className={classnames({
+      'border-b border-gray-200': !isLastMatch,
+      'sm:rounded': isLastMatch,
+      'flex flex-col': showMatchDate,
+    })}>
+      {showMatchDate &&
+        <div className="flex items-center justify-center text-gray-500 text-xs leading-none pt-1 px-4">
+          {dayText}
+        </div>
+      }
 
-        {!date &&
-          <span
-            className="flex items-center justify-center leading-none text-sm text-gray-500"
-          >Resmi tarih bekleniyor</span>
-        }
-      </span>
+      <div className="flex">
+        <div className="w-1/2 h-10 flex items-center justify-end space-x-3">
+          <Link
+            to={match.home.link}
+            title={match.home.nameShort}
+          >{match.home.name}</Link>
 
-      <span className="w-full flex items-center justify-between">
-        <span className="flex flex-col space-y-1">
-          <span className={classnames('flex flex-row items-center space-x-2', {
-            'font-semibold': isPlayed && match.score[0] > match.score[1]
-          })}>
-            <img className="block w-5 h-5" src={homeTeamLogo} alt={homeTeamName} />
+          <Link
+            to={match.home.link}
+            title={match.home.name}
+          >
+            <img
+              style={{
+                width: '24px',
+                height: '24px',
+              }}
+              src={match.home.logo}
+              alt={match.home.name}
+            />
+          </Link>
+        </div>
 
-            <h3 className="block truncate">{homeTeamName}</h3>
-          </span>
+        <div className="w-24 h-10 flex flex-grow items-center justify-center">
+          <button
+            className={classnames('w-12 h-6 flex items-center justify-center leading-none rounded-sm bg-white', {
+              'text-white bg-purple-500 font-medium shadow': !match.result && match.score,
+              'border font-medium': !match.result && !match.score,
+              'text-white bg-green-500': match.result && match.result === 'W',
+              'text-white bg-yellow-500': match.result && match.result === 'D',
+              'text-white bg-red-500': match.result && match.result === 'L',
+            })}
+            onClick={() => setShowModal(match.id)}
+          >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? match.date.format('HH.mm') : '-'}</button>
+        </div>
 
-          <span className={classnames('flex flex-row items-center space-x-2', {
-            'font-semibold': isPlayed && match.score[1] > match.score[0], 
-          })}>
-            <img className="block w-5 h-5" src={awayTeamLogo} alt={awayTeamName} />
+        <div className="w-1/2 h-10 flex items-center justify-start space-x-3">
+          <Link
+            to={match.away.link}
+            title={match.away.name}
+          >
+            <img
+              style={{
+                width: '24px',
+                height: '24px',
+              }}
+              src={match.away.logo}
+              alt={match.away.name}
+            />
+          </Link>
 
-            <h3 className="block truncate">{awayTeamName}</h3>
-          </span>
-        </span>
+          <Link
+            to={match.away.link}
+            title={match.away.nameShort}
+          >{match.away.name}</Link>
+        </div>
+      </div>
 
-        <span className="flex items-center justify-center ml-2">
-          {!userScore &&
-            <button
-              disabled={isPlayed}
-              className={classnames('w-7 h-7 leading-none font-medium text-white text-sm rounded-sm shadow', {
-                'bg-purple-500 cursor-default': isPlayed,
-                'bg-gray-500': !isPlayed
-              })}
-              onClick={() => setShowScorePopup(true)}
-            >{isPlayed ? `${match.score[0]}·${match.score[1]}` : '+'}</button>
-          }
-
-          {userScore && userScore.length &&
-            <button
-              className="w-7 h-7 leading-none font-medium text-white text-sm rounded-sm shadow bg-pink-500 cursor-pointer"
-              onClick={() => setShowScorePopup(true)}
-            >{`${userScore[0]}·${userScore[1]}`}</button>
-          }
-
-          {showScorePopup &&
-            <MatchScoreEditor match={match} setShowScorePopup={setShowScorePopup} />
-          }
-        </span>
-      </span>
-    </span>
+      {showModal &&
+        <MatchModal id={id} close={setShowModal} />
+      }
+    </div>
   );
 };
 
-export default FixtureWeekItem;
+export default FixtureWeekMatchItem;

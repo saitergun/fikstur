@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import groupBy from 'lodash.groupby';
 
 import { StoreContext } from '../store';
 
-const date2timestamp = (date) => Number(moment(date).format('X'));
+dayjs.extend(advancedFormat);
+
+const date2timestamp = (date) => Number(dayjs(date).format('X'));
 
 const useFixture = ({ season = 20192020, week = 100 }) => {
   const [weeks, setWeeks] = useState([]);
@@ -33,8 +36,14 @@ const useFixture = ({ season = 20192020, week = 100 }) => {
     // group matches by week number
     weeks = groupBy(weeks, 'week');
 
-    // matches convert object to array
+    // convert weeks from object to array
     weeks = Object.values(weeks);
+
+    // group matches by day
+    weeks = weeks.map((matches) => groupBy(matches, (match) => match.date && dayjs(match.date).format('dddd')));
+
+    // convert days from object to array
+    weeks = weeks.map((days) => Object.values(days));
 
     // set weeks
     setWeeks(weeks);

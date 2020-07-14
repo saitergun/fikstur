@@ -52,13 +52,13 @@ const PageFixture = () => {
                 height={height}
 
                 rowCount={weeks.length}
-                rowHeight={557 + 32}
+                rowHeight={463 + 32}
                 rowRenderer={({index, isScrolling, isVisible, key, style}) =>
-                  <div key={key} style={style}>
-                    <FixtureWeek matches={weeks[index]} />
+                  <span key={key} style={style}>
+                    <FixtureWeek days={weeks[index]} />
 
                     <span className="block w-8 h-8" />
-                  </div>
+                  </span>
                 }
                 noRowsRenderer={() =>
                   <AppLoader />

@@ -1,5 +1,91 @@
 @tailwind base;
+
 @tailwind components;
+
+/* #region .tab-menu */
+.tab-menu {
+  @apply flex justify-start;
+}
+
+.tab-menu-item {
+  @apply flex items-center justify-center;
+  @apply select-none cursor-pointer;
+  @apply leading-none text-center;
+  @apply border bg-gray-100;
+  @apply py-2 px-5 -mb-px;
+}
+
+.tab-menu-item.active {
+  @apply bg-white cursor-default;
+
+  border-bottom-color: white !important;
+}
+
+.tab-menu-item:not(.active) {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+}
+
+.tab-menu-item:focus {
+  @apply outline-none;
+}
+
+.tab-menu-item:first-child {
+  @apply rounded-tl;
+}
+
+.tab-menu-item:not(:first-child) {
+  @apply -ml-px;
+}
+
+.tab-menu-item:last-child {
+  @apply rounded-tr;
+}
+/* #endregion */
+
+/* #region .league-table */
+.league-table .sticky-table-table {
+  @apply w-full;
+}
+
+.league-table .sticky-table-row {}
+
+.league-table .sticky-table-row:not(:first-child) {
+  @apply cursor-pointer;
+}
+
+.league-table .sticky-table-cell {
+  @apply align-middle leading-none bg-transparent border-l-0 border-r-0 py-2 px-2 !important;
+}
+
+.league-table .sticky-table-row:first-child .sticky-table-cell {
+  @apply py-4 border-b-2 !important;
+}
+
+.league-table .sticky-table-cell:first-child {
+  @apply pl-4 !important;
+}
+
+.league-table .sticky-table-cell:last-child {
+  @apply pr-4 !important;
+}
+
+.league-table .sticky-table-row .sticky-table-cell:nth-child(1) {
+  @apply bg-white !important;
+}
+
+.league-table .sticky-table-row .sticky-table-cell:nth-child(2) {
+  @apply pl-3 !important;
+}
+
+.league-table .sticky-table-row:not(:first-child):hover .sticky-table-cell {
+  @apply bg-gray-100 !important;
+}
+
+.league-table .sticky-table-row:not(:first-child):active .sticky-table-cell {
+  @apply bg-gray-200 !important;
+}
+/* #endregion */
+
 @tailwind utilities;
 
 .ReactVirtualized__Grid.ReactVirtualized__List {
