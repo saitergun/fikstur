@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import {StickyTable, Row, Cell} from 'react-sticky-table';
+import { StickyTable, Row, Cell } from 'react-sticky-table';
 
 import useTable from '../hooks/useTable';
 
