@@ -58,7 +58,7 @@ const PageTable = () => {
                   <span className="w-6 flex items-center justify-center">
                     <img
                       className="block w-5 h-5"
-                      src={require(`../media/teams/logos/120x120/${team.id}.png`)}
+                      src={team.logo}
                       alt={team.nameShort}
                     />
                   </span>

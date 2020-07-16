@@ -23,42 +23,12 @@ const useTable = ({ season = 20192020, week = 0 }) => {
 
       // map for smaller
       played = played.map((match) => ({
-        week: match.week,
         home: match.home,
         away: match.away,
         score: match.score,
       }));
 
       return played;
-    }
-
-    function getTeamNextMatches(teamId) {
-      return matches
-        // filter by season
-        .filter((match) => match.season === season)
-
-        // filter by week
-        .filter((match) => match.week > week)
-
-        // filter by score
-        .filter((match) => match.score.length === 0)
-
-        // filter by played matches
-        .filter((match) => match.home === teamId || match.away === teamId)
-
-        .reverse()
-
-        .slice(-3)
-
-        // map for smaller
-        .map((match) => ({
-          home: match.home,
-          away: match.away,
-          score: match.score,
-          ...match,
-          home_team_name_short: teams.find((t) => t.id === match.home).name_short,
-          away_team_name_short: teams.find((t) => t.id === match.away).name_short,
-        }))
     }
 
     let table = teams.map((team) => {
@@ -69,30 +39,6 @@ const useTable = ({ season = 20192020, week = 0 }) => {
       const won = played.filter((match) => (match.home === team.id && match.score[0] > match.score[1]) || (match.away === team.id && match.score[1] > match.score[0]));
       const lost = played.filter((match) => (match.home === team.id && match.score[1] > match.score[0]) || (match.away === team.id && match.score[0] > match.score[1]));
       const drawn = played.filter((match) => match.score[0] === match.score[1]);
-
-      const lastResults = played.filter((match) => match.home === team.id || match.away === team.id)
-        .slice(-5)
-        .reverse()
-        .map((match2) => {
-          let result = 'D';
-
-          if ((match2.home === team.id && match2.score[0] > match2.score[1]) || (match2.away === team.id && match2.score[1] > match2.score[0])) {
-            result = 'W';
-          }
-
-          if ((match2.home === team.id && match2.score[1] > match2.score[0]) || (match2.away === team.id && match2.score[0] > match2.score[1])) {
-            result = 'L';
-          }
-
-          return {
-            ...match2,
-            home_team_name_short: teams.find((t) => t.id === match2.home).name_short,
-            away_team_name_short: teams.find((t) => t.id === match2.away).name_short,
-            result,
-          };
-        });
-
-      const nextMatches = getTeamNextMatches(team.id);;
 
       // goal counts
       const countGoalsFor = played.reduce((previousValue, match) => match.home === team.id ? previousValue + match.score[0] : previousValue + match.score[1], 0);
@@ -105,6 +51,7 @@ const useTable = ({ season = 20192020, week = 0 }) => {
       return {
         id: team.id,
         nameShort: team.name_short,
+        logo: require(`../media/teams/logos/120x120/${team.id}.png`),
         countPlayed: played.length,
         countWon: won.length,
         countDrawn: drawn.length,
@@ -113,9 +60,6 @@ const useTable = ({ season = 20192020, week = 0 }) => {
         countGoalsAgainst,
         countGoalsDifference,
         countPoints,
-        played,
-        lastResults,
-        nextMatches,
       }
     });
 
