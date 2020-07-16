@@ -9,7 +9,6 @@ import AppLoader from '../components/AppLoader';
 
 const PageTable = () => {
   const history = useHistory();
-  const tableRef = useRef();
 
   const table = useTable({});
 
@@ -34,7 +33,6 @@ const PageTable = () => {
           stickyFooterCount={0}
           borderWidth="1px"
           borderColor="#edf2f7" // gray-200
-          wrapperRef={tableRef}
         >
           <Row>
             <Cell></Cell>
