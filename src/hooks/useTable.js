@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 
 import { StoreContext } from '../store';
 
-const useTable = ({ season = 20192020, week = 0 }) => {
+const useTable = ({ season = 20192020 }) => {
   const [table, setTable] = useState([]);
 
   const { state } = useContext(StoreContext);
@@ -22,11 +22,25 @@ const useTable = ({ season = 20192020, week = 0 }) => {
       played = played.filter((match) => match.home === teamId || match.away === teamId);
 
       // map for smaller
-      played = played.map((match) => ({
-        home: match.home,
-        away: match.away,
-        score: match.score,
-      }));
+      played = played.map((match) => {
+        const isHome = match.home === teamId;
+        const isAway = match.away === teamId;
+
+        const isHomeWin = match.score[0] > match.score[1];
+        const isAwayWin = match.score[1] > match.score[0];
+        const isDrawn = match.score[0] === match.score[1];
+
+        return {
+          home: match.home,
+          away: match.away,
+          score: match.score,
+          isHome,
+          isAway,
+          isWin: (isHome && isHomeWin) || (isAway && isAwayWin),
+          isLost: (isHome && isAwayWin) || (isAway && isHomeWin),
+          isDrawn
+        };
+      });
 
       return played;
     }
@@ -36,13 +50,13 @@ const useTable = ({ season = 20192020, week = 0 }) => {
       const played = getTeamPlayedMatches(team.id);
 
       // filter matches by played
-      const won = played.filter((match) => (match.home === team.id && match.score[0] > match.score[1]) || (match.away === team.id && match.score[1] > match.score[0]));
-      const lost = played.filter((match) => (match.home === team.id && match.score[1] > match.score[0]) || (match.away === team.id && match.score[0] > match.score[1]));
-      const drawn = played.filter((match) => match.score[0] === match.score[1]);
+      const won = played.filter((match) => match.isWin);
+      const lost = played.filter((match) => match.isLost);
+      const drawn = played.filter((match) => match.isDrawn);
 
       // goal counts
-      const countGoalsFor = played.reduce((previousValue, match) => match.home === team.id ? previousValue + match.score[0] : previousValue + match.score[1], 0);
-      const countGoalsAgainst = played.reduce((previousValue, match) => match.home === team.id ? previousValue + match.score[1] : previousValue + match.score[0], 0);
+      const countGoalsFor = played.reduce((previousValue, match) => match.isHome ? previousValue + match.score[0] : previousValue + match.score[1], 0);
+      const countGoalsAgainst = played.reduce((previousValue, match) => match.isHome ? previousValue + match.score[1] : previousValue + match.score[0], 0);
       const countGoalsDifference = countGoalsFor - countGoalsAgainst;
 
       // points
@@ -87,7 +101,7 @@ const useTable = ({ season = 20192020, week = 0 }) => {
     return () => {
       setTable([]);
     };
-  }, [matches, teams, season, week]);
+  }, [matches, teams, season]);
 
   return table;
 }
