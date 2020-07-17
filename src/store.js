@@ -4,6 +4,7 @@ import { node } from 'prop-types';
 const rootState = {
   app: {
     name: 'fikstür',
+    url: window.location.origin + window.location.pathname,
 
     loading: true,
     loadingErrorText: null,
