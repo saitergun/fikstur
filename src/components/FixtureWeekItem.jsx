@@ -58,8 +58,8 @@ const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
         <div className="w-1/2 h-10 flex items-center justify-end space-x-3">
           <Link
             to={match.home.link}
-            title={match.home.nameShort}
-          >{match.home.name}</Link>
+            title={match.home.name}
+          >{match.home.nameShort}</Link>
 
           <Link
             to={match.home.link}
@@ -106,8 +106,8 @@ const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
 
           <Link
             to={match.away.link}
-            title={match.away.nameShort}
-          >{match.away.name}</Link>
+            title={match.away.name}
+          >{match.away.nameShort}</Link>
         </div>
       </div>
 
