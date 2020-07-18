@@ -14,8 +14,6 @@ import Team from '../pages/Team';
 const App = () => {
   const { state, setState } = useContext(StoreContext);
 
-  const { loading } = state.app;
-
   const { teams, matches } = state.data;
 
   // set matches
@@ -45,9 +43,9 @@ const App = () => {
 
   return (
     <>
-      {loading && <AppLoader />}
+      {state.app.loading && <AppLoader />}
 
-      {!loading &&
+      {!state.app.loading &&
         <>
           <AppNavbar />
 
