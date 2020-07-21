@@ -100,13 +100,6 @@ const PageTeam = () => {
                   'text-right': match.isHome,
                   'text-left': match.isAway,
                 })}></span>
-
-                {/* {match.date &&
-                  <time
-                    className="block text-sm text-gray-400 italic"
-                    dateTime={match.date.format('YYYYY-MM-DDTHH:mmZ')}
-                  >{match.date.format('D MMMM dddd, HH.mm')}</time>
-                } */}
               </li>
             )}
           </ul>
