@@ -8,7 +8,7 @@ import useTeamFixture from '../hooks/useTeamFixture';
 
 import MatchModal from '../components/MatchModal';
 
-const Team = () => {
+const PageTeam = () => {
   const [showModal, setShowModal] = useState(false);
 
   let { id } = useParams();
@@ -120,4 +120,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default PageTeam;
