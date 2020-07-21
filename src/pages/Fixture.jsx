@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useRef } from 'react';
+import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
 import { List, WindowScroller, AutoSizer} from 'react-virtualized';
 
 import useFixture from '../hooks/useFixture';
@@ -30,6 +30,10 @@ const PageFixture = () => {
       }, 50);
     }
   }, [fixture.weeks, fixture.nextWeekIndex]);
+
+  useEffect(() => {
+    document.title = 'Fikstür';
+  }, []);
 
   if (!fixture.weeks.length) {
     return (

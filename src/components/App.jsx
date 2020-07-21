@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -14,6 +14,10 @@ import Team from '../pages/Team';
 
 const App = () => {
   const { state } = useContext(StoreContext);
+
+  useEffect(() => {
+    document.title = 'Yükleniyor';
+  }, []);
 
   if (state.app.loading) {
     return <AppLoader />;

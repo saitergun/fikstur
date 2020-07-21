@@ -20,6 +20,12 @@ const Team = () => {
   // scroll to top when first load
   useEffect(() => window.scrollTo(0, 0), [id]);
 
+  useEffect(() => {
+    if (team?.name) {
+      document.title = team.name;
+    }
+  }, [team]);
+
   if (!id || !team) {
     return (
       <main className="sm:max-w-lg py-4 mx-auto text-center">

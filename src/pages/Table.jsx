@@ -14,6 +14,8 @@ const PageTable = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    document.title = 'Puan Durumu';
   }, []);
 
   if (table.length === 0) {

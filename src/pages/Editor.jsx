@@ -43,6 +43,10 @@ const PageEditor = () => {
     }
   }, [matchesRaw, matches]);
 
+  useEffect(() => {
+    document.title = 'Editör';
+  }, []);
+
   const updateHomeTeamScore = (id, score) => {
     const matchesCopy = {...matches};
 
