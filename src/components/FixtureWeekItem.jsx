@@ -20,20 +20,20 @@ dayjs.extend(isTomorrow);
 
 const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
   const [showModal, setShowModal] = useState(false);
-  const [dayText, setDayText] = useState(null);
+  const [dayText, setDayText] = useState('-');
 
   const match = useMatch(id);
 
   useEffect(() => {
     if (match?.date) {
-      if (dayjs(match.date).isYesterday()) {
+      if (match.date.isYesterday()) {
         setDayText('Dün');
-      } else if (dayjs(match.date).isToday()) {
+      } else if (match.date.isToday()) {
         setDayText('Bugün');
-      } else if (dayjs(match.date).isTomorrow()) {
+      } else if (match.date.isTomorrow()) {
         setDayText('Yarın');
       } else {
-        setDayText(dayjs(match.date).format('dddd / D MMM'));
+        setDayText(match.date.format('dddd / D MMM'));
       }
     }
   }, [match]);

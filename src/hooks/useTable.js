@@ -16,7 +16,7 @@ const useTable = ({ season = 20192020 }) => {
       played = played.filter((match) => match.season === season);
 
       // filter by score
-      played = played.filter((match) => match.score.length);
+      played = played.filter((match) => match.score);
 
       // filter by played matches
       played = played.filter((match) => match.home === teamId || match.away === teamId);
@@ -26,9 +26,9 @@ const useTable = ({ season = 20192020 }) => {
         const isHome = match.home === teamId;
         const isAway = match.away === teamId;
 
-        const isHomeWin = match.score[0] > match.score[1];
-        const isAwayWin = match.score[1] > match.score[0];
-        const isDrawn = match.score[0] === match.score[1];
+        const isHomeWin = match.score.home > match.score.away;
+        const isAwayWin = match.score.away > match.score.home;
+        const isDrawn = match.score.home === match.score.away;
 
         return {
           home: match.home,
@@ -55,8 +55,8 @@ const useTable = ({ season = 20192020 }) => {
       const drawn = played.filter((match) => match.isDrawn);
 
       // goal counts
-      const countGoalsFor = played.reduce((previousValue, match) => match.isHome ? previousValue + match.score[0] : previousValue + match.score[1], 0);
-      const countGoalsAgainst = played.reduce((previousValue, match) => match.isHome ? previousValue + match.score[1] : previousValue + match.score[0], 0);
+      const countGoalsFor = played.reduce((previousValue, match) => match.isHome ? previousValue + match.score.home : previousValue + match.score.away, 0);
+      const countGoalsAgainst = played.reduce((previousValue, match) => match.isHome ? previousValue + match.score.away : previousValue + match.score.home, 0);
       const countGoalsDifference = countGoalsFor - countGoalsAgainst;
 
       // points

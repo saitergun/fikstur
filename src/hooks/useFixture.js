@@ -9,8 +9,6 @@ import { StoreContext } from '../store';
 
 dayjs.extend(advancedFormat);
 
-const date2timestamp = (date) => Number(dayjs(date).format('X'));
-
 const useFixture = ({ season = 20192020, week = 100 }) => {
   const [weeks, setWeeks] = useState([]);
   const [nextWeekIndex, setNextWeekIndex] = useState(0);
@@ -28,10 +26,10 @@ const useFixture = ({ season = 20192020, week = 100 }) => {
       weeks = weeks.filter((match) => match.week === week);
     }
 
-    setNextWeekIndex(weeks.find((match) => match.score.length === 0)?.week ?? 0);
+    setNextWeekIndex(weeks.find((match) => match.score)?.week ?? 0);
 
     // sort matches by date
-    weeks = weeks.sort((a, b) => date2timestamp(a.date) - date2timestamp(b.date));
+    weeks = weeks.sort((a, b) => a.date && b.date && a.date.format('X') - b.date.format('X'));
 
     // group matches by week number
     weeks = groupBy(weeks, 'week');
@@ -40,7 +38,7 @@ const useFixture = ({ season = 20192020, week = 100 }) => {
     weeks = Object.values(weeks);
 
     // group matches by day
-    weeks = weeks.map((matches) => groupBy(matches, (match) => match.date && dayjs(match.date).format('dddd')));
+    weeks = weeks.map((matches) => groupBy(matches, (match) => match.date && match.date.format('dddd')));
 
     // convert days from object to array
     weeks = weeks.map((days) => Object.values(days));

@@ -13,19 +13,20 @@ const useTeamFixture = (id = 0) => {
   const { state } = useContext(StoreContext);
 
   useEffect(() => {
-    const matches = state.data.matches.filter((mf) => mf.home === id || mf.away === id)
+    const matches = state.data.matches
+      .filter((mf) => mf.home === id || mf.away === id)
       .map((mm) => {
         let result = null;
 
         const isHome = mm.home === id;
         const isAway = mm.away === id;
 
-        if (mm.score.length > 0) {
-          const isWinHome = mm.score[0] > mm.score[1];
-          const isWinAway = mm.score[1] > mm.score[0];
+        if (mm.score) {
+          const isWinHome = mm.score.home > mm.score.away;
+          const isWinAway = mm.score.away > mm.score.home;
 
-          const isLostHome = mm.score[1] > mm.score[0];
-          const isLostAway = mm.score[0] > mm.score[1];
+          const isLostHome = mm.score.away > mm.score.home;
+          const isLostAway = mm.score.home > mm.score.away;
 
           const isWin = (isHome && isWinHome) || (isAway && isWinAway);
           const isLost = (isHome && isLostHome) || (isAway && isLostAway);
@@ -48,10 +49,7 @@ const useTeamFixture = (id = 0) => {
             link: `/team/${team.id}`,
             logo: require(`../media/teams/logos/120x120/${team.id}.png`)
           },
-          score: mm.score.length === 2 ? {
-            home: mm.score[0],
-            away: mm.score[1],
-          } : null,
+          score: mm.score,
           date: mm.date ? dayjs(mm.date) : null,
           result,
         };

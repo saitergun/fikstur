@@ -38,11 +38,8 @@ const useMatch = (id = 0) => {
           link: `/team/${away.id}`,
           logo: require(`../media/teams/logos/120x120/${away.id}.png`)
         },
-        score: find.score.length === 2 ? {
-          home: find.score[0],
-          away: find.score[1],
-        } : null,
-        date: find.date ? dayjs(find.date) : null
+        score: find.score,
+        date: find.date
       });
     } else {
       setMatch(null);

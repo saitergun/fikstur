@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -12,58 +12,29 @@ import Table from '../pages/Table';
 import Team from '../pages/Team';
 
 const App = () => {
-  const { state, setState } = useContext(StoreContext);
+  const { state } = useContext(StoreContext);
 
-  const { teams, matches } = state.data;
-
-  // set matches
-  useEffect(() => {
-    if (matches.length === 0) {
-      import('../data/matches/20192020').then((response) => {
-        setState({ type: 'PUSH_MATCHES', payload: response.default });
-      });
-    }
-  }, [setState, matches.length]);
-
-  // set teams
-  useEffect(() => {
-    if (teams.length === 0) {
-      import('../data/teams').then((response) => {
-        setState({ type: 'PUSH_TEAMS', payload: response.default });
-      });
-    }
-  }, [setState, teams.length]);
-
-  // set app loading status
-  useEffect(() => {
-    if (teams.length && matches.length) {
-      setState({ type: 'SET_APP_LOADING_STATUS', payload: false });
-    }
-  }, [setState, teams.length, matches.length]);
+  if (state.app.loading) {
+    return <AppLoader />;
+  }
 
   return (
     <>
-      {state.app.loading && <AppLoader />}
+      <AppNavbar />
 
-      {!state.app.loading &&
-        <>
-          <AppNavbar />
+      <Switch>
+        <Route path='/fixture' component={Fixture} />
+        <Route path='/table' component={Table} />
+        <Route path='/team/:id' component={Team} />
 
-          <Switch>
-            <Route path='/fixture' component={Fixture} />
-            <Route path='/table' component={Table} />
-            <Route path='/team/:id' component={Team} />
+        <Route path='/'>
+          <Redirect to="/fixture" />
+        </Route>
 
-            <Route path='/'>
-              <Redirect to="/fixture" />
-            </Route>
-
-            <Route>
-              <Redirect to="/fixture" />
-            </Route>
-          </Switch>
-        </>
-      }
+        <Route>
+          <Redirect to="/fixture" />
+        </Route>
+      </Switch>
     </>
   );
 };
