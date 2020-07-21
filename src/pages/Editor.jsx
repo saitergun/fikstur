@@ -9,23 +9,17 @@ import tr from 'date-fns/locale/tr';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
 import useMatches from '../hooks/useMatches';
+import useTeams from '../hooks/useTeams';
 
 dayjs.extend(advancedFormat);
 
 registerLocale('tr', tr);
 
 const PageEditor = () => {
-  const [teams, setTeams] = useState(null);
   const [matches, setMatches] = useState(null);
 
+  const teams = useTeams();
   const matchesRaw = useMatches(20192020);
-
-  // set teams
-  useEffect(() => {
-    if (teams === null) {
-      import('../data/teams').then((response) => setTeams(response.default));
-    }
-  }, [teams]);
 
   // set matches
   useEffect(() => {

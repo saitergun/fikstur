@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { node } from 'prop-types';
 
 import useMatches from './hooks/useMatches';
+import useTeams from './hooks/useTeams';
 
 const rootState = {
   app: {
@@ -48,6 +49,7 @@ export const StoreContext = React.createContext(rootState);
 const Store = (props) => {
   const [state, setState] = React.useReducer(reducer, rootState);
 
+  const teams = useTeams();
   const matches = useMatches(20192020);
 
   // set matches
@@ -60,11 +62,9 @@ const Store = (props) => {
   // set teams
   useEffect(() => {
     if (state.data.teams.length === 0) {
-      import('./data/teams').then((response) => {
-        setState({ type: 'SET_TEAMS', payload: response.default });
-      });
+      setState({ type: 'SET_TEAMS', payload: teams });
     }
-  }, [state.data.teams.length]);
+  }, [teams, state.data.teams.length]);
 
   // set app loading status
   useEffect(() => {

@@ -13,9 +13,9 @@ const useTeam = (id = 0) => {
     if (find) {
       setTeam({
         id,
-        nameTff: find.name_tff,
+        nameTff: find.nameTff,
         name: find.name,
-        nameShort: find.name_short,
+        nameShort: find.nameShort,
         logo: require(`../media/teams/logos/120x120/${id}.png`)
       });
     } else {

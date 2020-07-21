@@ -43,9 +43,9 @@ const useTeamFixture = (id = 0) => {
           isAway,
           team: {
             id: team.id,
-            nameTff: team.name_tff,
+            nameTff: team.nameTff,
             name: team.name,
-            nameShort: team.name_short,
+            nameShort: team.nameShort,
             link: `/team/${team.id}`,
             logo: require(`../media/teams/logos/120x120/${team.id}.png`)
           },

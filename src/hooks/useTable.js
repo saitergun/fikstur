@@ -64,7 +64,7 @@ const useTable = ({ season = 20192020 }) => {
 
       return {
         id: team.id,
-        nameShort: team.name_short,
+        nameShort: team.nameShort,
         logo: require(`../media/teams/logos/120x120/${team.id}.png`),
         countPlayed: played.length,
         countWon: won.length,

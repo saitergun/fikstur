@@ -24,17 +24,17 @@ const useMatch = (id = 0) => {
         week: find.week,
         home: {
           id: home.id,
-          nameTff: home.name_tff,
+          nameTff: home.nameTff,
           name: home.name,
-          nameShort: home.name_short,
+          nameShort: home.nameShort,
           link: `/team/${home.id}`,
           logo: require(`../media/teams/logos/120x120/${home.id}.png`)
         },
         away: {
           id: away.id,
-          nameTff: away.name_tff,
+          nameTff: away.nameTff,
           name: away.name,
-          nameShort: away.name_short,
+          nameShort: away.nameShort,
           link: `/team/${away.id}`,
           logo: require(`../media/teams/logos/120x120/${away.id}.png`)
         },
