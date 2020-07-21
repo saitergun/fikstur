@@ -35,10 +35,6 @@ const MatchModal = ({ id, close }) => {
           </ul>
         </header>
 
-        {/* <main className="py-4">
-          <pre>{JSON.stringify(match, null, 2)}</pre>
-        </main> */}
-
         <main className="py-4">
           {match.date &&
             <time
