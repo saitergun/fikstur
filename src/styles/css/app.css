@@ -763,6 +763,12 @@ video {
   background-color: rgba(247, 250, 252, var(--bg-opacity));
 }
 
+.bg-gray-200 {
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
+}
+
 .bg-gray-800 {
   --bg-opacity: 1;
   background-color: #2d3748;
@@ -773,6 +779,12 @@ video {
   --bg-opacity: 1;
   background-color: #f56565;
   background-color: rgba(245, 101, 101, var(--bg-opacity));
+}
+
+.bg-yellow-100 {
+  --bg-opacity: 1;
+  background-color: #fffff0;
+  background-color: rgba(255, 255, 240, var(--bg-opacity));
 }
 
 .bg-yellow-500 {
@@ -923,6 +935,10 @@ video {
   flex-grow: 1;
 }
 
+.font-mono {
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 .font-didact-gothic {
   font-family: Didact Gothic, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -949,6 +965,10 @@ video {
 
 .h-10 {
   height: 2.5rem;
+}
+
+.h-48 {
+  height: 12rem;
 }
 
 .h-auto {
@@ -1020,6 +1040,10 @@ video {
   max-width: 24rem;
 }
 
+.max-w-4xl {
+  max-width: 56rem;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1039,6 +1063,11 @@ video {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .py-2 {
