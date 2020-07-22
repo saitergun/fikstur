@@ -717,12 +717,6 @@ video {
 
 /* #endregion */
 
-.space-x-2 > :not(template) ~ :not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--space-x-reverse)));
-}
-
 .space-x-3 > :not(template) ~ :not(template) {
   --space-x-reverse: 0;
   margin-right: calc(0.75rem * var(--space-x-reverse));
@@ -737,18 +731,6 @@ video {
 
 .space-x-reverse > :not(template) ~ :not(template) {
   --space-x-reverse: 1;
-}
-
-.divide-x > :not(template) ~ :not(template) {
-  --divide-x-reverse: 0;
-  border-right-width: calc(1px * var(--divide-x-reverse));
-  border-left-width: calc(1px * calc(1 - var(--divide-x-reverse)));
-}
-
-.divide-gray-200 > :not(template) ~ :not(template) {
-  --divide-opacity: 1;
-  border-color: #edf2f7;
-  border-color: rgba(237, 242, 247, var(--divide-opacity));
 }
 
 .bg-white {
@@ -809,12 +791,6 @@ video {
   --bg-opacity: 1;
   background-color: #805ad5;
   background-color: rgba(128, 90, 213, var(--bg-opacity));
-}
-
-.active\:bg-gray-100:active {
-  --bg-opacity: 1;
-  background-color: #f7fafc;
-  background-color: rgba(247, 250, 252, var(--bg-opacity));
 }
 
 .active\:bg-purple-700:active {
@@ -951,10 +927,6 @@ video {
   font-weight: 600;
 }
 
-.h-5 {
-  height: 1.25rem;
-}
-
 .h-6 {
   height: 1.5rem;
 }
@@ -999,10 +971,6 @@ video {
   font-size: 1.25rem;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-}
-
 .text-3xl {
   font-size: 1.875rem;
 }
@@ -1016,10 +984,6 @@ video {
   margin-right: auto;
 }
 
-.mt-1 {
-  margin-top: 0.25rem;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -1030,10 +994,6 @@ video {
 
 .mt-4 {
   margin-top: 1rem;
-}
-
-.mt-5 {
-  margin-top: 1.25rem;
 }
 
 .max-w-sm {
@@ -1083,11 +1043,6 @@ video {
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}
-
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
 }
 
 .py-4 {
@@ -1187,12 +1142,6 @@ video {
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
-.text-gray-400 {
-  --text-opacity: 1;
-  color: #cbd5e0;
-  color: rgba(203, 213, 224, var(--text-opacity));
-}
-
 .text-gray-500 {
   --text-opacity: 1;
   color: #a0aec0;
@@ -1203,16 +1152,6 @@ video {
   --text-opacity: 1;
   color: #4a5568;
   color: rgba(74, 85, 104, var(--text-opacity));
-}
-
-.italic {
-  font-style: italic;
-}
-
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .w-5 {
