@@ -1,6 +1,6 @@
 {
   "name": "fikstur",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "homepage": "https://saitergun.github.io/fikstur",
   "private": true,
   "dependencies": {
@@ -10,7 +10,6 @@
     "autoprefixer": "^9.7.6",
     "classnames": "^2.2.6",
     "dayjs": "^1.8.29",
-    "gh-pages": "^2.2.0",
     "lodash.groupby": "^4.6.0",
     "postcss-cli": "^7.1.0",
     "react": "^16.13.1",
@@ -29,9 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "tailwind": "tailwind build src/styles/css/tailwind.css -o src/styles/css/app.css",
-    "predeploy": "react-scripts build",
-    "deploy": "gh-pages -d build"
+    "tailwind": "tailwind build src/styles/css/tailwind.css -o src/styles/css/app.css"
   },
   "eslintConfig": {
     "extends": "react-app"
