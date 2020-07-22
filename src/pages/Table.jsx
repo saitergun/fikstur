@@ -6,6 +6,7 @@ import { StickyTable, Row, Cell } from 'react-sticky-table';
 import useTable from '../hooks/useTable';
 
 import AppLoader from '../components/AppLoader';
+import TeamLogo from '../components/TeamLogo';
 
 const PageTable = () => {
   const history = useHistory();
@@ -58,10 +59,9 @@ const PageTable = () => {
                   <span className="w-5 block text-right font-semibold">{team.position}</span>
 
                   <span className="w-6 flex items-center justify-center">
-                    <img
-                      className="block w-5 h-5"
+                    <TeamLogo
                       src={team.logo}
-                      alt={team.nameShort}
+                      title={team.name}
                     />
                   </span>
 

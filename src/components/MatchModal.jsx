@@ -5,6 +5,8 @@ import classnames from 'classnames';
 
 import useMatch from '../hooks/useMatch';
 
+import TeamLogo from './TeamLogo';
+
 const MatchModal = ({ id, close }) => {
   const match = useMatch(id);
 
@@ -49,19 +51,12 @@ const MatchModal = ({ id, close }) => {
             })}
           >
             <span className="flex flex-col items-center justify-start">
-              <Link
-                to={match.home.link}
+              <TeamLogo
+                src={match.home.logo}
                 title={match.home.name}
-              >
-                <img
-                  style={{
-                    width: '48px',
-                    height: '48px',
-                  }}
-                  src={match.home.logo}
-                  alt={match.home.name}
-                />
-              </Link>
+                href={match.home.link}
+                size="md"
+              />
 
               <h3 className="text-lg leading-none mt-3">
                 <Link
@@ -76,19 +71,12 @@ const MatchModal = ({ id, close }) => {
             </span>
 
             <span className="flex flex-col items-center justify-start">
-              <Link
-                to={match.away.link}
+              <TeamLogo
+                src={match.away.logo}
                 title={match.away.name}
-              >
-                <img
-                  style={{
-                    width: '48px',
-                    height: '48px',
-                  }}
-                  src={match.away.logo}
-                  alt={match.away.name}
-                />
-              </Link>
+                href={match.away.link}
+                size="md"
+              />
 
               <h3 className="text-lg leading-none mt-3">
                 <Link

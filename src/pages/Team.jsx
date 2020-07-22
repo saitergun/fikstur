@@ -7,6 +7,7 @@ import useTeam from '../hooks/useTeam';
 import useTeamFixture from '../hooks/useTeamFixture';
 
 import MatchModal from '../components/MatchModal';
+import TeamLogo from '../components/TeamLogo';
 
 const PageTeam = () => {
   const [showModal, setShowModal] = useState(false);
@@ -38,17 +39,11 @@ const PageTeam = () => {
     <>
       <main className="sm:max-w-lg py-4 mx-auto">
         <header className="flex flex-row items-center space-x-4 bg-white border-t border-b sm:border border-gray-200 sm:rounded p-4">
-          <figure className="block px-2">
-            <img
-              className="block"
-              style={{
-                width: '72px',
-                height: '72px',
-              }}
-              src={team.logo}
-              alt={team.name}
-            />
-          </figure>
+          <TeamLogo
+            src={team.logo}
+            title={team.name}
+            size="lg"
+          />
 
           <span className="block">
             <h1 className="text-3xl font-semibold">{team.name}</h1>
@@ -77,19 +72,11 @@ const PageTeam = () => {
                   onClick={() => setShowModal(match.id)}
                 >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? match.date.format('HH.mm') : '-'}</button>
 
-                <Link
-                  to={match.team.link}
+                <TeamLogo
+                  src={match.team.logo}
                   title={match.team.name}
-                >
-                  <img
-                    style={{
-                      width: '24px',
-                      height: '24px',
-                    }}
-                    src={match.team.logo}
-                    alt={match.team.name}
-                  />
-                </Link>
+                  href={match.team.link}
+                />
 
                 <Link
                   to={match.team.link}

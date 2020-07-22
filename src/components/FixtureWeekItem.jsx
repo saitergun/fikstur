@@ -12,6 +12,7 @@ import 'dayjs/locale/tr';
 import useMatch from '../hooks/useMatch';
 
 import MatchModal from './MatchModal';
+import TeamLogo from './TeamLogo';
 
 dayjs.locale('tr');
 dayjs.extend(isYesterday);
@@ -61,19 +62,11 @@ const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
             title={match.home.name}
           >{match.home.nameShort}</Link>
 
-          <Link
-            to={match.home.link}
+          <TeamLogo
+            src={match.home.logo}
             title={match.home.name}
-          >
-            <img
-              style={{
-                width: '24px',
-                height: '24px',
-              }}
-              src={match.home.logo}
-              alt={match.home.name}
-            />
-          </Link>
+            href={match.home.link}
+          />
         </div>
 
         <div className="w-24 h-10 flex flex-grow items-center justify-center">
@@ -90,19 +83,11 @@ const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
         </div>
 
         <div className="w-1/2 h-10 flex items-center justify-start space-x-3">
-          <Link
-            to={match.away.link}
+          <TeamLogo
+            src={match.away.logo}
             title={match.away.name}
-          >
-            <img
-              style={{
-                width: '24px',
-                height: '24px',
-              }}
-              src={match.away.logo}
-              alt={match.away.name}
-            />
-          </Link>
+            href={match.away.link}
+          />
 
           <Link
             to={match.away.link}
