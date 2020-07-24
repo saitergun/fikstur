@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 import groupBy from 'lodash.groupby';
-
-import { StoreContext } from '../store';
 
 dayjs.extend(advancedFormat);
 
@@ -13,7 +12,7 @@ const useFixture = ({ season = 20192020, week = 100 }) => {
   const [weeks, setWeeks] = useState([]);
   const [nextWeekIndex, setNextWeekIndex] = useState(0);
 
-  const { matches } = useContext(StoreContext).state.data;
+  const { matches } = useSelector((state) => state.data);
 
   useEffect(() => {
     let weeks = matches;

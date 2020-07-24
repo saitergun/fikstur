@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
-
-import { StoreContext } from '../store';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const useTeam = (id = 0) => {
   const [team, setTeam] = useState(null);
 
-  const { state } = useContext(StoreContext);
+  const state = useSelector((state) => state);
 
   useEffect(() => {
     const find = state.data.teams.find((t) => t.id === id);
@@ -21,7 +20,7 @@ const useTeam = (id = 0) => {
     } else {
       setTeam(null);
     }
-  }, [id, state]);
+  }, [id, state.data.teams]);
 
   return team;
 };

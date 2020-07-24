@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/tr';
-
-import { StoreContext } from '../store';
 
 dayjs.locale('tr');
 
 const useTeamFixture = (id = 0) => {
   const [fixture, setFixture] = useState([]);
 
-  const { state } = useContext(StoreContext);
+  const state = useSelector((state) => state);
 
   useEffect(() => {
     const matches = state.data.matches

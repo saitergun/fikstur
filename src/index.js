@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { HashRouter } from 'react-router-dom';
 
-import Store from './store';
+import { StoreProvider } from './store';
 
 import './styles/css/app.css';
 
@@ -12,11 +11,11 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <Store>
+  <StoreProvider>
     <HashRouter basename='/'>
       <App />
     </HashRouter>
-  </Store>,
+  </StoreProvider>,
   document.getElementById('root')
 );
 

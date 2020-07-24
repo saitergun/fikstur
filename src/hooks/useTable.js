@@ -1,12 +1,10 @@
-import { useContext, useState, useEffect } from 'react';
-
-import { StoreContext } from '../store';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const useTable = ({ season = 20192020 }) => {
   const [table, setTable] = useState([]);
 
-  const { state } = useContext(StoreContext);
-  const { matches, teams } = state.data;
+  const { matches, teams } = useSelector((state) => state.data);
 
   useEffect(() => {
     function getTeamPlayedMatches(teamId) {
