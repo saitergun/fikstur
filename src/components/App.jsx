@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,14 +23,14 @@ const App = () => {
 
   // set matches
   useLayoutEffect(() => {
-    if (state.data.matches.length === 0) {
+    if (state.data.matches.length === 0 && matches.length !== 0) {
       dispatch({ type: 'SET_MATCHES', payload: matches });
     }
   }, [dispatch, matches, state.data.matches.length]);
 
   // set teams
   useLayoutEffect(() => {
-    if (state.data.teams.length === 0) {
+    if (state.data.teams.length === 0 && teams.length !== 0) {
       dispatch({ type: 'SET_TEAMS', payload: teams });
     }
   }, [dispatch, teams, state.data.teams.length]);
