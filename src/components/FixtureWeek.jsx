@@ -21,7 +21,7 @@ const FixtureWeek = ({ days }) => {
       {days.map((matches) => matches.map((match, index) =>
         <FixtureWeekItem
           key={match.id}
-          id={match.id}
+          match={match}
           isLastMatch={match.id === lastMatchId}
           showMatchDate={index === 0 && match.date}
         />

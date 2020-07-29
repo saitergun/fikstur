@@ -1,43 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import classnames from 'classnames';
 
-import dayjs from 'dayjs';
-import isYesterday from 'dayjs/plugin/isYesterday';
-import isTomorrow from 'dayjs/plugin/isTomorrow';
-import isToday from 'dayjs/plugin/isToday';
-import 'dayjs/locale/tr';
-
-import useMatch from '../hooks/useMatch';
-
 import MatchModal from './MatchModal';
 import TeamLogo from './TeamLogo';
 
-dayjs.locale('tr');
-dayjs.extend(isYesterday);
-dayjs.extend(isToday);
-dayjs.extend(isTomorrow);
-
-const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
+const FixtureWeekMatchItem = ({ match, isLastMatch, showMatchDate }) => {
   const [showModal, setShowModal] = useState(false);
-  const [dayText, setDayText] = useState('-');
-
-  const match = useMatch(id);
-
-  useEffect(() => {
-    if (match?.date) {
-      if (match.date.isYesterday()) {
-        setDayText('Dün');
-      } else if (match.date.isToday()) {
-        setDayText('Bugün');
-      } else if (match.date.isTomorrow()) {
-        setDayText('Yarın');
-      } else {
-        setDayText(match.date.format('dddd / D MMM'));
-      }
-    }
-  }, [match]);
 
   if (!match) {
     return null;
@@ -49,9 +19,15 @@ const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
       'sm:rounded': isLastMatch,
       'flex flex-col': showMatchDate,
     })}>
-      {showMatchDate &&
+      {match.date && showMatchDate &&
         <div className="flex items-center justify-center text-gray-500 text-xs leading-none pt-1 px-4">
-          {dayText}
+          {match.date && match.date.isYesterday && <>Dün</>}
+          {match.date && match.date.isToday && <>Bugün</>}
+          {match.date && match.date.isTomorrow && <>Yarın</>}
+
+          {match.date && !match.date.isYesterday && !match.date.isToday && !match.date.isTomorrow && <>{
+            `${match.date.dddd} / ${match.date.D} ${match.date.MMM}`
+          }</>}
         </div>
       }
 
@@ -79,7 +55,7 @@ const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
               'text-white bg-red-500': match.result && match.result === 'L',
             })}
             onClick={() => setShowModal(match.id)}
-          >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? match.date.format('HH.mm') : '-'}</button>
+          >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? `${match.date.HH}.${match.date.mm}` : '-'}</button>
         </div>
 
         <div className="w-1/2 h-10 flex items-center justify-start space-x-3">
@@ -97,7 +73,7 @@ const FixtureWeekMatchItem = ({ id, isLastMatch, showMatchDate }) => {
       </div>
 
       {showModal &&
-        <MatchModal id={id} close={setShowModal} />
+        <MatchModal id={match.id} close={setShowModal} />
       }
     </div>
   );

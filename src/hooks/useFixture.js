@@ -1,20 +1,45 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import dayjs from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-
 import groupBy from 'lodash.groupby';
 
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import isYesterday from 'dayjs/plugin/isYesterday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
+import isToday from 'dayjs/plugin/isToday';
+import 'dayjs/locale/tr';
+
+dayjs.locale('tr');
 dayjs.extend(advancedFormat);
+dayjs.extend(isYesterday);
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
 
 const useFixture = ({ season = 20192020, week = 100 }) => {
   const [weeks, setWeeks] = useState([]);
   const [nextWeekIndex, setNextWeekIndex] = useState(0);
 
-  const { matches } = useSelector((state) => state.data);
+  const { matches, teams } = useSelector((state) => state.data);
 
   useEffect(() => {
+    const getTeamById = (id) => {
+      const find = teams.find((t) => t.id === id);
+  
+      if (find) {
+        return {
+          id,
+          nameTff: find.nameTff,
+          name: find.name,
+          nameShort: find.nameShort,
+          link: `/team/${find.id}`,
+          logo: require(`../media/teams/logos/120x120/${id}.png`)
+        };
+      }
+  
+      return null;
+    };
+
     let weeks = matches;
 
     // filter matches by season
@@ -42,9 +67,42 @@ const useFixture = ({ season = 20192020, week = 100 }) => {
     // convert days from object to array
     weeks = weeks.map((days) => Object.values(days));
 
+    weeks = weeks.map((week) => {
+      return week.map((days) => {
+        return days.map((match) => {
+          const home = getTeamById(match.home);
+          const away = getTeamById(match.away);
+
+          let date = null;
+
+          if (match.date) {
+            date = {
+              isYesterday: match.date.isYesterday(),
+              isToday: match.date.isToday(),
+              isTomorrow: match.date.isTomorrow(),
+
+              dddd: match.date.format('dddd'),
+              D: match.date.format('D'),
+              MMM: match.date.format('MMM'),
+
+              HH: match.date.format('HH'),
+              mm: match.date.format('mm'),
+            }
+          }
+
+          return {
+            ...match,
+            home,
+            away,
+            date,
+          };
+        });
+      });
+    });
+
     // set weeks
     setWeeks(weeks);
-  }, [matches, season, week]);
+  }, [matches, teams, season, week]);
 
   return {
     weeks,
