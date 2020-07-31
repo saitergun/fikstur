@@ -5,6 +5,7 @@ import useFixture from '../hooks/useFixture';
 
 import AppLoader from '../components/AppLoader';
 import FixtureWeek from '../components/FixtureWeek';
+import FixtureWeekPlaceholder from '../components/FixtureWeekPlaceholder';
 
 const PageFixture = () => {
   const [weeks, setWeeks] = useState([]);
@@ -57,13 +58,28 @@ const PageFixture = () => {
 
                 rowCount={weeks.length}
                 rowHeight={463 + 32}
-                rowRenderer={({index, isScrolling, isVisible, key, style}) =>
-                  <span key={key} style={style}>
-                    <FixtureWeek days={weeks[index]} />
+                rowRenderer={({index, isScrolling, isVisible, key, style}) => {
+                  if (!isVisible) {
+                    return (
+                      <span key={key} style={style}>
+                        <FixtureWeekPlaceholder
+                          week={weeks[index][0][0].week}
+                          height={`${463}px`}
+                        />
 
-                    <span className="block w-8 h-8" />
-                  </span>
-                }
+                        <span className="block w-8 h-8" />
+                      </span>
+                    );
+                  }
+
+                  return (
+                    <span key={key} style={style}>
+                      <FixtureWeek days={weeks[index]} />
+
+                      <span className="block w-8 h-8" />
+                    </span>
+                  );
+                }}
                 noRowsRenderer={() =>
                   <AppLoader />
                 }
