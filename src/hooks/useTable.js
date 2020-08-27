@@ -104,6 +104,22 @@ const useTable = (season) => {
     });
 
     table = table.sort((a, b) => {
+      // if season not started for each teams
+      if (b.countPlayed === 0 && a.countPlayed === 0) {
+        const nameTeamA = a.nameShort.toLocaleLowerCase('tr-TR');
+        const nameTeamB = b.nameShort.toLocaleLowerCase('tr-TR');
+
+        if (nameTeamA < nameTeamB) {
+          return -1;
+        }
+
+        if (nameTeamA > nameTeamB) {
+          return 1;
+        }
+
+        return 0;
+      }
+
       // if equal points
       if (b.countPoints === a.countPoints) {
         const counts = getTeamCountsHeadToHead(a.id, b.id);
