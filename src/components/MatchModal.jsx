@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import classnames from 'classnames';
+import dayjs from 'dayjs';
 
 import useMatch from '../hooks/useMatch';
 
@@ -9,6 +10,8 @@ import TeamLogo from './TeamLogo';
 
 const MatchModal = ({ id, close }) => {
   const match = useMatch(id);
+
+  console.log(match);
 
   // remove body scroll
   useEffect(() => {
@@ -43,6 +46,12 @@ const MatchModal = ({ id, close }) => {
               className="block text-center"
               dateTime={match.date.format('YYYYY-MM-DDTHH:mmZ')}
             >{match.date.format('D MMMM YYYY dddd, HH.mm')}</time>
+          }
+
+          {match.week &&
+            <span
+              className="block text-center"
+            >{match.week}. hafta</span>
           }
 
           <div
