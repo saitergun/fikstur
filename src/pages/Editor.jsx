@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -24,8 +24,10 @@ const PageEditor = () => {
   const [newRowWeek, setNewRowWeek] = useState(1);
   const [newRowDate, setNewRowDate] = useState(null);
 
+  const state = useSelector((state) => state);
+
   const teams = useTeams();
-  const matchesRaw = useMatches(20202021);
+  const matchesRaw = useMatches(state.data.season);
 
   useEffect(() => {
     document.title = 'Editör';
@@ -63,7 +65,7 @@ const PageEditor = () => {
 
       matchesCopy.rows.push([
         id+1, // id
-        20202021, // season
+        state.data.season, // season
         newRowWeek, // week
         0, // home
         0, // away

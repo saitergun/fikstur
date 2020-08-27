@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
 import { List, WindowScroller, AutoSizer} from 'react-virtualized';
+import { useSelector } from 'react-redux';
 
 import useFixture from '../hooks/useFixture';
 
@@ -10,8 +11,10 @@ import FixtureWeekPlaceholder from '../components/FixtureWeekPlaceholder';
 const PageFixture = () => {
   const [weeks, setWeeks] = useState([]);
 
+  const state = useSelector(state => state);
+
   const refList = useRef();
-  const fixture = useFixture({});
+  const fixture = useFixture(state.data.season);
 
   useLayoutEffect(() => {
     let scrollTop = Number(sessionStorage.getItem('fixture-saved:fixture-scollTop') ?? 0);

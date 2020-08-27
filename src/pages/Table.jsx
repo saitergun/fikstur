@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 
@@ -9,9 +10,10 @@ import AppLoader from '../components/AppLoader';
 import TeamLogo from '../components/TeamLogo';
 
 const PageTable = () => {
+  const state = useSelector(state => state);
   const history = useHistory();
 
-  const table = useTable({});
+  const table = useTable(state.data.season);
 
   useEffect(() => {
     window.scrollTo(0, 0);

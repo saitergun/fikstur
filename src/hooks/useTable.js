@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-const useTable = ({ season = 20202021 }) => {
+const useTable = (season) => {
   const [table, setTable] = useState([]);
 
   const { matches, teams } = useSelector((state) => state.data);

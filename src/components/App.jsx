@@ -19,7 +19,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const teams = useTeams();
-  const matches = useMatches(20202021);
+  const matches = useMatches(state.data.season);
 
   // set matches
   useLayoutEffect(() => {

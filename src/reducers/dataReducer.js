@@ -1,6 +1,7 @@
 const initialState = {
   teams: [],
   matches: [],
+  season: 20202021
 };
 
 const dataReducer = (state = initialState, { type, payload }) => {
@@ -10,9 +11,13 @@ const dataReducer = (state = initialState, { type, payload }) => {
 
       return {...state};
     case 'SET_MATCHES':
-        state.matches = payload;
+      state.matches = payload;
   
-        return {...state};
+      return {...state};
+    case 'SET_SEASON':
+      state.season = payload;
+  
+      return {...state};
     default:
       return state;
   }

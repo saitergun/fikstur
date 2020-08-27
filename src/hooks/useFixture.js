@@ -16,7 +16,7 @@ dayjs.extend(isYesterday);
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
-const useFixture = ({ season = 20202021, week = 100 }) => {
+const useFixture = (season, week) => {
   const [weeks, setWeeks] = useState([]);
   const [nextWeekIndex, setNextWeekIndex] = useState(0);
 
@@ -46,7 +46,7 @@ const useFixture = ({ season = 20202021, week = 100 }) => {
     weeks = weeks.filter((match) => match.season === season);
 
     // filter matches by week number
-    if (week !== 100) {
+    if (week !== undefined) {
       weeks = weeks.filter((match) => match.week === week);
     }
 
