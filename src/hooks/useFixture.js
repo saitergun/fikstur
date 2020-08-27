@@ -16,7 +16,7 @@ dayjs.extend(isYesterday);
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
 
-const useFixture = ({ season = 20192020, week = 100 }) => {
+const useFixture = ({ season = 20202021, week = 100 }) => {
   const [weeks, setWeeks] = useState([]);
   const [nextWeekIndex, setNextWeekIndex] = useState(0);
 

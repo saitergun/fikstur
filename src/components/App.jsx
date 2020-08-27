@@ -19,7 +19,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const teams = useTeams();
-  const matches = useMatches(20192020);
+  const matches = useMatches(20202021);
 
   // set matches
   useLayoutEffect(() => {
