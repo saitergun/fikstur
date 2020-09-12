@@ -39,6 +39,29 @@ const PageFixture = () => {
     document.title = 'Fikstür';
   }, []);
 
+  const rowRenderer = ({index, isScrolling, isVisible, key, style}) => {
+    if (!isVisible) {
+      return (
+        <span key={key} style={style}>
+          <FixtureWeekPlaceholder
+            week={weeks[index][0][0].week}
+            height={`${463}px`}
+          />
+
+          <span className="block w-8 h-8" />
+        </span>
+      );
+    }
+
+    return (
+      <span key={key} style={style}>
+        <FixtureWeek days={weeks[index]} />
+
+        <span className="block w-8 h-8" />
+      </span>
+    );
+  };
+
   if (!fixture.weeks.length) {
     return (
       <AppLoader />
@@ -61,28 +84,7 @@ const PageFixture = () => {
 
                 rowCount={weeks.length}
                 rowHeight={463 + 32}
-                rowRenderer={({index, isScrolling, isVisible, key, style}) => {
-                  if (!isVisible) {
-                    return (
-                      <span key={key} style={style}>
-                        <FixtureWeekPlaceholder
-                          week={weeks[index][0][0].week}
-                          height={`${463}px`}
-                        />
-
-                        <span className="block w-8 h-8" />
-                      </span>
-                    );
-                  }
-
-                  return (
-                    <span key={key} style={style}>
-                      <FixtureWeek days={weeks[index]} />
-
-                      <span className="block w-8 h-8" />
-                    </span>
-                  );
-                }}
+                rowRenderer={rowRenderer}
                 noRowsRenderer={() =>
                   <AppLoader />
                 }
