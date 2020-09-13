@@ -20,9 +20,12 @@ registerLocale('tr', tr);
 const PageEditor = () => {
   const [matches, setMatches] = useState(null);
 
-  const [newRowCount, setNewRowCount] = useState(1);
-  const [newRowWeek, setNewRowWeek] = useState(1);
-  const [newRowDate, setNewRowDate] = useState(null);
+  // const [newRowCount, setNewRowCount] = useState(1);
+  // const [newRowWeek, setNewRowWeek] = useState(1);
+  // const [newRowDate, setNewRowDate] = useState(null);
+
+  const [rowsStartIndex, setRowsStartIndex] = useState(0);
+  const [rowsEndIndex, setRowsEndIndex] = useState(20);
 
   const state = useSelector((state) => state);
 
@@ -55,28 +58,28 @@ const PageEditor = () => {
     }
   }, [matchesRaw, matches]);
 
-  const addNewRow = () => {
-    for (let x = 1; x <= newRowCount; x = x+1) {
-      const matchesCopy = {...matches};
+  // const addNewRow = () => {
+  //   for (let x = 1; x <= newRowCount; x = x+1) {
+  //     const matchesCopy = {...matches};
 
-      const [id] = matchesCopy.rows[matchesCopy.rows.length-1];
+  //     const [id] = matchesCopy.rows[matchesCopy.rows.length-1];
 
-      matchesCopy.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss');
+  //     matchesCopy.updatedAt = dayjs().format('YYYY-MM-DD HH:mm:ss');
 
-      matchesCopy.rows.push([
-        id+1, // id
-        state.data.season, // season
-        newRowWeek, // week
-        0, // home
-        0, // away
-        null, // homeScore
-        null, // awayScore
-        newRowDate // datetime
-      ]);
+  //     matchesCopy.rows.push([
+  //       id+1, // id
+  //       state.data.season, // season
+  //       newRowWeek, // week
+  //       0, // home
+  //       0, // away
+  //       null, // homeScore
+  //       null, // awayScore
+  //       newRowDate // datetime
+  //     ]);
 
-      setMatches(matchesCopy);
-    }
-  };
+  //     setMatches(matchesCopy);
+  //   }
+  // };
 
   const updateMatchId = (id, newId) => {
     const matchesCopy = {...matches};
@@ -204,6 +207,36 @@ const PageEditor = () => {
         <table className="w-full bg-white">
           <thead>
             <tr>
+              <th className="border px-4 py-1">start</th>
+              <th className="border px-4 py-1">end</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td className="border px-4 py-1 text-center">
+                <input
+                  className="border rounded bg-gray-100 text-center p-1"
+                  type="number"
+                  value={rowsStartIndex}
+                  onChange={(e) => setRowsStartIndex(Number(e.target.value))}
+                />
+              </td>
+              <td className="border px-4 py-1 text-center">
+                <input
+                  className="border rounded bg-gray-100 text-center p-1"
+                  type="number"
+                  value={rowsEndIndex}
+                  onChange={(e) => setRowsEndIndex(Number(e.target.value))}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        {/* <table className="w-full bg-white">
+          <thead>
+            <tr>
               <th className="border px-4 py-1">count</th>
               <th className="border px-4 py-1">week</th>
               <th className="border px-4 py-1">date</th>
@@ -259,7 +292,7 @@ const PageEditor = () => {
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
       </div>
 
       <div className="py-4">
@@ -278,7 +311,7 @@ const PageEditor = () => {
           </thead>
 
           <tbody>
-            {matches && matches.rows.map(([id, season, week, home, away, homeScore, awayScore, date], index) => {
+            {matches && matches.rows.slice(rowsStartIndex, rowsEndIndex).map(([id, season, week, home, away, homeScore, awayScore, date], index) => {
               const homeTeam = teams.find((team) => team.id === home);
               const awayTeam = teams.find((team) => team.id === away);
 
