@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
-import { List, WindowScroller, AutoSizer} from 'react-virtualized';
+import React, { useState, useEffect } from 'react';
+import { List, WindowScroller, AutoSizer } from 'react-virtualized';
 import { useSelector } from 'react-redux';
 
 import useFixture from '../hooks/useFixture';
@@ -8,47 +8,53 @@ import AppLoader from '../components/AppLoader';
 import FixtureWeek from '../components/FixtureWeek';
 import FixtureWeekPlaceholder from '../components/FixtureWeekPlaceholder';
 
+const DEFAULT_WEEK_HEIGHT = 447; // withouts day height 447
+const WEEK_GAP = 32; // 2rem
+const DAY_TEXT_HEIGHT = 16; // one day text height 1rem
+
 const PageFixture = () => {
   const [weeks, setWeeks] = useState([]);
+  const [firstScrollOk, setFirstScrollOk] = useState(false);
 
   const state = useSelector(state => state);
 
-  const refList = useRef();
   const fixture = useFixture(state.data.season);
 
-  useLayoutEffect(() => {
+  // init
+  useEffect(() => {
+    document.title = 'Fikstür';
+
+    return () => {
+      setFirstScrollOk(false);
+    };
+  }, []);
+
+  // set weeks
+  useEffect(() => {
     let scrollTop = Number(sessionStorage.getItem('fixture-saved:fixture-scollTop') ?? 0);
 
     if (fixture.weeks.length) {
       setTimeout(() => {
         setWeeks(fixture.weeks);
 
-        if (scrollTop === 0) {
-          scrollTop = (fixture.nextWeekIndex - 1) * refList.current.props.rowHeight - (refList.current.props.rowHeight / 2);
+        if (scrollTop > 100) {
+          window.scrollTo(0, scrollTop);
         }
 
-        // 60px ???
-        scrollTop += 60;
-  
-        window.scrollTo(0, scrollTop);
-      }, 50);
+        setFirstScrollOk(true);
+      }, 5);
     }
   }, [fixture.weeks, fixture.nextWeekIndex]);
 
-  useEffect(() => {
-    document.title = 'Fikstür';
-  }, []);
-
+  // List prop
   const rowRenderer = ({index, isScrolling, isVisible, key, style}) => {
     if (!isVisible) {
       return (
         <span key={key} style={style}>
           <FixtureWeekPlaceholder
             week={weeks[index][0][0].week}
-            height={`${463}px`}
+            height={`${DEFAULT_WEEK_HEIGHT}px`}
           />
-
-          <span className="block w-8 h-8" />
         </span>
       );
     }
@@ -56,11 +62,27 @@ const PageFixture = () => {
     return (
       <span key={key} style={style}>
         <FixtureWeek days={weeks[index]} />
-
-        <span className="block w-8 h-8" />
       </span>
     );
   };
+
+  // List prop
+  const rowHeight = ({ index }) => {
+    let height = DEFAULT_WEEK_HEIGHT;
+
+    if (weeks[index][0][0].date !== null) {
+      height = DEFAULT_WEEK_HEIGHT + (weeks[index].length * DAY_TEXT_HEIGHT);
+    }
+
+    if (index + 1 !== weeks.length) {
+      height += WEEK_GAP;
+    }
+
+    return height;
+  };
+
+  // List prop
+  const estimatedRowSize = DEFAULT_WEEK_HEIGHT + (DAY_TEXT_HEIGHT * 4) + WEEK_GAP;
 
   if (!fixture.weeks.length) {
     return (
@@ -69,35 +91,39 @@ const PageFixture = () => {
   }
 
   return (
-    <div className="sm:max-w-lg mt-4 mx-auto">
-      <WindowScroller scrollElement={window} onScroll={({ scrollTop }) => {
-        sessionStorage.setItem('fixture-saved:fixture-scollTop', scrollTop);
-      }}>
-        {({height, isScrolling, registerChild, onChildScroll, scrollTop}) =>
-          <AutoSizer disableHeight>
-            {({width}) =>
-              <List
-                ref={refList}
-                autoHeight
-                width={width}
-                height={height}
+    <div className="relative sm:max-w-lg mx-auto">
+      <WindowScroller>
+        {({height, width, isScrolling, scrollTop, registerChild, onChildScroll}) => {
+          if (firstScrollOk) {
+            sessionStorage.setItem('fixture-saved:fixture-scollTop', scrollTop + 60);
+          }
 
-                rowCount={weeks.length}
-                rowHeight={463 + 32}
-                rowRenderer={rowRenderer}
-                noRowsRenderer={() =>
-                  <AppLoader />
-                }
+          return (
+            <AutoSizer>
+              {({width}) => {
+                return (
+                  <List
+                    className="my-4"
 
-                // onRowsRendered={({ overscanStartIndex, overscanStopIndex, startIndex, stopIndex }) => {}}
+                    width={width}
+                    height={height}
+                    autoHeight
 
-                scrollTop={scrollTop}
-                onScroll={onChildScroll}
-                isScrolling={isScrolling}
-              />
-            }
-          </AutoSizer>
-        }
+                    rowCount={weeks.length}
+                    rowHeight={rowHeight}
+                    rowRenderer={rowRenderer}
+                    noRowsRenderer={() => <AppLoader />}
+                    estimatedRowSize={estimatedRowSize}
+
+                    scrollTop={scrollTop}
+                    onScroll={onChildScroll}
+                    isScrolling={isScrolling}
+                  />
+                );
+              }}
+            </AutoSizer>
+          );
+        }}
       </WindowScroller>
     </div>
   );
