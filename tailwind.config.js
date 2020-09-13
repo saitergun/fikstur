@@ -1,6 +1,9 @@
 const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
+// parse npm config argumans
+const argv = JSON.parse(process.env.npm_config_argv);
+
 const utilities = ({ addUtilities }) => {
   addUtilities({
     '.no-scrollbar': {
@@ -13,7 +16,7 @@ const utilities = ({ addUtilities }) => {
 
 module.exports = {
   purge: {
-    enabled: true,
+    enabled: argv.original.indexOf('--purge') > -1,
     content: [
       './public/*.html',
       './src/**/*.jsx'
