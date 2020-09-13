@@ -1172,6 +1172,10 @@ video {
   padding-top: 1.25rem;
 }
 
+.pt-12 {
+  padding-top: 3rem;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -1186,11 +1190,6 @@ video {
 
 .relative {
   position: relative;
-}
-
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
 }
 
 .inset-0 {
