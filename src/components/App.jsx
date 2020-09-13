@@ -9,7 +9,7 @@ import useMatches from '../hooks/useMatches';
 import AppLoader from './AppLoader';
 import AppNavbar from './AppNavbar';
 
-import Editor from '../pages/Editor';
+import Editor from '../pages/editor/Index';
 import Fixture from '../pages/Fixture';
 import Table from '../pages/Table';
 import Team from '../pages/Team';

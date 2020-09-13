@@ -8,10 +8,10 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import tr from 'date-fns/locale/tr';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
-import useMatches from '../hooks/useMatches';
-import useTeams from '../hooks/useTeams';
+import useMatches from '../../hooks/useMatches';
+import useTeams from '../../hooks/useTeams';
 
-import AppLoader from '../components/AppLoader';
+import AppLoader from '../../components/AppLoader';
 
 dayjs.extend(advancedFormat);
 
