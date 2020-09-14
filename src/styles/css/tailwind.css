@@ -92,3 +92,7 @@
   outline: none !important;
   will-change: auto !important;
 }
+
+.react-datepicker-wrapper {
+  display: block !important;
+}

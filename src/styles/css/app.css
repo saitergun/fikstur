@@ -820,6 +820,16 @@ video {
   --space-x-reverse: 1;
 }
 
+.appearance-none {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
 .bg-white {
   --bg-opacity: 1;
   background-color: #fff;
@@ -830,12 +840,6 @@ video {
   --bg-opacity: 1;
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
-}
-
-.bg-gray-200 {
-  --bg-opacity: 1;
-  background-color: #edf2f7;
-  background-color: rgba(237, 242, 247, var(--bg-opacity));
 }
 
 .bg-gray-800 {
@@ -850,10 +854,10 @@ video {
   background-color: rgba(245, 101, 101, var(--bg-opacity));
 }
 
-.bg-yellow-100 {
+.bg-yellow-200 {
   --bg-opacity: 1;
-  background-color: #fffff0;
-  background-color: rgba(255, 255, 240, var(--bg-opacity));
+  background-color: #fefcbf;
+  background-color: rgba(254, 252, 191, var(--bg-opacity));
 }
 
 .bg-yellow-500 {
@@ -878,6 +882,12 @@ video {
   --bg-opacity: 1;
   background-color: #805ad5;
   background-color: rgba(128, 90, 213, var(--bg-opacity));
+}
+
+.active\:bg-gray-200:active {
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
 }
 
 .active\:bg-purple-700:active {
@@ -914,16 +924,12 @@ video {
   border-radius: 0.25rem;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
+.border-2 {
+  border-width: 2px;
 }
 
 .border {
   border-width: 1px;
-}
-
-.border-t-4 {
-  border-top-width: 4px;
 }
 
 .border-b-4 {
@@ -940,6 +946,10 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 
 .block {
@@ -998,6 +1008,10 @@ video {
   flex-grow: 1;
 }
 
+.font-sans {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .font-mono {
   font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -1018,6 +1032,10 @@ video {
   font-weight: 600;
 }
 
+.font-bold {
+  font-weight: 700;
+}
+
 .h-6 {
   height: 1.5rem;
 }
@@ -1028,6 +1046,10 @@ video {
 
 .h-12 {
   height: 3rem;
+}
+
+.h-20 {
+  height: 5rem;
 }
 
 .h-auto {
@@ -1070,6 +1092,10 @@ video {
   line-height: 1;
 }
 
+.m-1 {
+  margin: 0.25rem;
+}
+
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -1078,6 +1104,10 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
 }
 
 .mt-2 {
@@ -1092,12 +1122,20 @@ video {
   margin-top: 1rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
 
-.max-w-6xl {
-  max-width: 72rem;
+.max-w-5xl {
+  max-width: 64rem;
+}
+
+.focus\:outline-none:focus {
+  outline: 0;
 }
 
 .overflow-hidden {
@@ -1123,11 +1161,6 @@ video {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 }
 
 .py-2 {
@@ -1166,6 +1199,10 @@ video {
 
 .pr-2 {
   padding-right: 0.5rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .pt-5 {
@@ -1211,6 +1248,10 @@ video {
   left: 0;
 }
 
+.shadow-xs {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
 .shadow {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
@@ -1221,6 +1262,10 @@ video {
 
 .shadow-xl {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.table-auto {
+  table-layout: auto;
 }
 
 .text-left {
@@ -1259,12 +1304,6 @@ video {
   color: rgba(74, 85, 104, var(--text-opacity));
 }
 
-.text-purple-100 {
-  --text-opacity: 1;
-  color: #faf5ff;
-  color: rgba(250, 245, 255, var(--text-opacity));
-}
-
 .w-5 {
   width: 1.25rem;
 }
@@ -1277,16 +1316,8 @@ video {
   width: 3rem;
 }
 
-.w-20 {
-  width: 5rem;
-}
-
 .w-24 {
   width: 6rem;
-}
-
-.w-40 {
-  width: 10rem;
 }
 
 .w-1\/2 {
@@ -1324,6 +1355,10 @@ video {
 .ReactVirtualized__Grid.ReactVirtualized__List {
   outline: none !important;
   will-change: auto !important;
+}
+
+.react-datepicker-wrapper {
+  display: block !important;
 }
 
 @media (min-width: 640px) {
