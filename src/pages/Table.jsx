@@ -70,14 +70,14 @@ const PageTable = () => {
                   <span className="block leading-none">{team.nameShort}</span>
                 </div>
               </Cell>
-              <Cell className="text-right font-semibold">{team.countPoints}</Cell>
-              <Cell className="text-right">{team.countPlayed}</Cell>
-              <Cell className="text-right">{team.countWon}</Cell>
-              <Cell className="text-right">{team.countDrawn}</Cell>
-              <Cell className="text-right">{team.countLost}</Cell>
-              <Cell className="text-right">{team.countGoalsFor}</Cell>
-              <Cell className="text-right">{team.countGoalsAgainst}</Cell>
-              <Cell className="text-right">{team.countGoalsDifference > 0 ? `+${team.countGoalsDifference}` : team.countGoalsDifference}</Cell>
+              <Cell className="text-right font-semibold">{team.countPoints ? team.countPoints : '-'}</Cell>
+              <Cell className="text-right">{team.countPlayed ? team.countPlayed : '-'}</Cell>
+              <Cell className="text-right">{team.countWon ? team.countWon : '-'}</Cell>
+              <Cell className="text-right">{team.countDrawn ? team.countDrawn : '-'}</Cell>
+              <Cell className="text-right">{team.countLost ? team.countLost : '-'}</Cell>
+              <Cell className="text-right">{team.countGoalsFor ? team.countGoalsFor : '-'}</Cell>
+              <Cell className="text-right">{team.countGoalsAgainst ? team.countGoalsAgainst : '-'}</Cell>
+              <Cell className="text-right">{team.countGoalsDifference > 0 ? `+${team.countGoalsDifference}` : team.countGoalsDifference ? team.countGoalsDifference : '-'}</Cell>
             </Row>
           )}
         </StickyTable>
