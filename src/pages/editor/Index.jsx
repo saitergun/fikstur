@@ -108,7 +108,7 @@ const PageEditor = () => {
       <div className="pb-4">
         <textarea
           className="w-full h-20 border-2 p-1 font-mono text-xs"
-          value={JSON.stringify(matches)}
+          value={`${JSON.stringify(matches)}\n`}
           onChange={(e) => console.log(e.target)}
           ref={textareaRef}
         />
