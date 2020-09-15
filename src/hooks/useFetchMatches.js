@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react';
 
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import 'dayjs/locale/tr';
-
 dayjs.extend(advancedFormat);
-dayjs.locale('tr');
 
-const useMatches = (season = 20202021) => {
+const useFetchMatches = (season = 20202021) => {
   const [matches, setMatches] = useState(() => {
     if (!season) {
       return [];
@@ -79,4 +76,4 @@ const useMatches = (season = 20202021) => {
   })
 };
 
-export default useMatches;
+export default useFetchMatches;

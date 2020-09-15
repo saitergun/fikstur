@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react';
 
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-
 dayjs.extend(advancedFormat);
 
-const useTeams = () => {
+const useFetchTeams = () => {
   const [teams, setTeams] = useState(() => {
     try {
       const teams = window.localStorage.getItem(`fikstur:saved-teams`);
@@ -63,4 +62,4 @@ const useTeams = () => {
   }))
 };
 
-export default useTeams;
+export default useFetchTeams;

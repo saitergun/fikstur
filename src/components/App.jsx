@@ -3,8 +3,8 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import useTeams from '../hooks/useTeams';
-import useMatches from '../hooks/useMatches';
+import useFetchTeams from '../hooks/useFetchTeams';
+import useFetchMatches from '../hooks/useFetchMatches';
 
 import AppLoader from './AppLoader';
 import AppNavbar from './AppNavbar';
@@ -18,8 +18,8 @@ const App = () => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const teams = useTeams();
-  const matches = useMatches(state.data.season);
+  const teams = useFetchTeams();
+  const matches = useFetchMatches(state.data.season);
 
   // set matches
   useLayoutEffect(() => {
