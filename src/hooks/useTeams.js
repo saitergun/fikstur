@@ -53,11 +53,13 @@ const useTeams = () => {
     }
   }, [teams, lastUpdatedAt, isChecking]);
 
-  return teams.map((team) => ({
-    id: team[0],
-    name: team[1],
-    nameShort: team[2],
-    nameTff: team[3],
+  return teams.map(([id, name, nameShort, nameTff]) => ({
+    id,
+    name,
+    nameShort,
+    nameTff,
+    link: `/team/${id}`,
+    logo: require(`../media/teams/logos/120x120/${id}.png`)
   }))
 };
 
