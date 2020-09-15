@@ -1,25 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import dayjs from 'dayjs';
-import 'dayjs/locale/tr';
-
-dayjs.locale('tr');
-
 const useMatch = (id = 0) => {
   const [match, setMatch] = useState(null);
 
-  const state = useSelector((state) => state);
+  const { matches, teams } = useSelector((state) => state.data);
 
   useEffect(() => {
-    const find = state.data.matches.find((m) => m.id === id);
+    const find = matches.find((m) => m.id === id);
 
     if (find) {
-      const home = state.data.teams.find((t) => t.id === find.home);
-      const away = state.data.teams.find((t) => t.id === find.away);
+      const home = teams.find((team) => team.id === find.home);
+      const away = teams.find((team) => team.id === find.away);
 
       setMatch({
         id,
+        season: find.season,
         week: find.week,
         home: {
           id: home.id,
@@ -43,7 +39,7 @@ const useMatch = (id = 0) => {
     } else {
       setMatch(null);
     }
-  }, [id, state]);
+  }, [id, matches, teams]);
 
   return match;
 };
