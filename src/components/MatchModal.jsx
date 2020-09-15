@@ -57,12 +57,16 @@ const MatchModal = ({ id, close }) => {
             })}
           >
             <span className="flex flex-col items-center justify-start">
-              <TeamLogo
-                src={match.home.logo}
+              <Link
+                to={match.home.link}
                 title={match.home.name}
-                href={match.home.link}
-                size="md"
-              />
+              >
+                <TeamLogo
+                  src={match.home.logo}
+                  alt={match.home.name}
+                  size="md"
+                />
+              </Link>
 
               <h3 className="text-lg leading-none mt-3">
                 <Link
@@ -77,12 +81,16 @@ const MatchModal = ({ id, close }) => {
             </span>
 
             <span className="flex flex-col items-center justify-start">
-              <TeamLogo
-                src={match.away.logo}
+              <Link
+                to={match.away.link}
                 title={match.away.name}
-                href={match.away.link}
-                size="md"
-              />
+              >
+                <TeamLogo
+                  src={match.away.logo}
+                  alt={match.away.name}
+                  size="md"
+                />
+              </Link>
 
               <h3 className="text-lg leading-none mt-3">
                 <Link

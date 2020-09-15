@@ -38,11 +38,15 @@ const FixtureWeekMatchItem = ({ match, isLastMatch, showMatchDate }) => {
             title={match.home.name}
           >{match.home.nameShort}</Link>
 
-          <TeamLogo
-            src={match.home.logo}
+          <Link
+            to={match.away.link}
             title={match.home.name}
-            href={match.home.link}
-          />
+          >
+            <TeamLogo
+              src={match.home.logo}
+              alt={match.home.name}
+            />
+          </Link>
         </div>
 
         <div className="w-24 h-10 flex flex-grow items-center justify-center">
@@ -59,11 +63,14 @@ const FixtureWeekMatchItem = ({ match, isLastMatch, showMatchDate }) => {
         </div>
 
         <div className="w-1/2 h-10 flex items-center justify-start space-x-3">
-          <TeamLogo
-            src={match.away.logo}
-            title={match.away.name}
-            href={match.away.link}
-          />
+          <Link
+            to={match.away.link}
+          >
+            <TeamLogo
+              src={match.away.logo}
+              alt={match.away.name}
+            />
+          </Link>
 
           <Link
             to={match.away.link}

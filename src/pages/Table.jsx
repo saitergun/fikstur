@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { StickyTable, Row, Cell } from 'react-sticky-table';
@@ -61,10 +61,15 @@ const PageTable = () => {
                   <span className="w-5 block text-right font-semibold">{team.position}</span>
 
                   <span className="w-6 flex items-center justify-center">
-                    <TeamLogo
-                      src={team.logo}
+                    <Link
+                      to={team.link}
                       title={team.name}
-                    />
+                    >
+                      <TeamLogo
+                        src={team.logo}
+                        alt={team.name}
+                      />
+                    </Link>
                   </span>
 
                   <span className="block leading-none">{team.nameShort}</span>

@@ -1,8 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 
-import { Link } from 'react-router-dom';
-
-const TeamLogo = ({ src, title, href, size }) => {
+const TeamLogo = ({ src, alt, size }) => {
   const [width, setWidth] = useState('24px');
   const [height, setHeight] = useState('24px');
 
@@ -24,31 +22,14 @@ const TeamLogo = ({ src, title, href, size }) => {
     return null;
   }
 
-  if (!href) {
-    return (
-      <figure>
-        <img
-          style={{ width, height }}
-          src={src}
-          alt={title}
-        />
-      </figure>
-    );
-  }
-
   return (
-    <Link
-      to={href}
-      title={title}
-    >
-      <figure>
-        <img
-          style={{ width, height }}
-          src={src}
-          alt={title}
-        />
-      </figure>
-    </Link>
+    <figure>
+      <img
+        style={{ width, height }}
+        src={src}
+        alt={alt}
+      />
+    </figure>
   );
 };
 

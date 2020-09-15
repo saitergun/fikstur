@@ -39,11 +39,16 @@ const PageTeam = () => {
     <>
       <main className="sm:max-w-lg py-4 mx-auto">
         <header className="flex flex-row items-center space-x-4 bg-white border-t border-b sm:border border-gray-200 sm:rounded p-4">
-          <TeamLogo
-            src={team.logo}
+          <Link
+            to={team.link}
             title={team.name}
-            size="lg"
-          />
+          >
+            <TeamLogo
+              src={team.logo}
+              alt={team.name}
+              size="lg"
+            />
+          </Link>
 
           <span className="block">
             <h1 className="text-3xl font-semibold">{team.name}</h1>
@@ -72,11 +77,16 @@ const PageTeam = () => {
                   onClick={() => setShowModal(match.id)}
                 >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? match.date.format('HH.mm') : '-'}</button>
 
-                <TeamLogo
-                  src={match.team.logo}
+                <Link
+                  to={match.team.link}
                   title={match.team.name}
-                  href={match.team.link}
-                />
+                >
+                  <TeamLogo
+                    src={match.team.logo}
+                    title={match.team.name}
+                    href={match.team.link}
+                  />
+                </Link>
 
                 <Link
                   to={match.team.link}
