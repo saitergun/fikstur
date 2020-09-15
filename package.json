@@ -4,11 +4,11 @@
   "homepage": "https://saitergun.github.io/fikstur",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.2",
-    "@testing-library/react": "^10.4.7",
-    "@testing-library/user-event": "^12.0.17",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.5",
     "classnames": "^2.2.6",
-    "dayjs": "^1.8.31",
+    "dayjs": "^1.8.35",
     "lodash.groupby": "^4.6.0",
     "lodash.isequal": "^4.5.0",
     "react": "^16.13.1",
@@ -16,15 +16,15 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "react-sticky-table": "^5.1.4",
-    "react-virtualized": "^9.21.2",
+    "react-scripts": "^3.4.3",
+    "react-sticky-table": "^5.1.7",
+    "react-virtualized": "^9.22.2",
     "redux": "^4.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
-    "postcss-cli": "^7.1.1",
-    "tailwindcss": "^1.6.0"
+    "postcss-cli": "^7.1.2",
+    "tailwindcss": "^1.8.10"
   },
   "scripts": {
     "start": "react-scripts start",
