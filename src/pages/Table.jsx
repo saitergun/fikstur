@@ -51,38 +51,38 @@ const PageTable = () => {
             <Cell className="font-semibold text-right text-sm">Av.</Cell>
           </Row>
 
-          {table.map((team) =>
+          {table.map((row) =>
             <Row
-              onClick={() => {history.push(`/team/${team.id}`)}}
-              key={team.position}
+              onClick={() => {history.push(row.team.link)}}
+              key={row.position}
             >
               <Cell className="shadow-lg">
                 <div className="flex items-center space-x-3 pr-2">
-                  <span className="w-5 block text-right font-semibold">{team.position}</span>
+                  <span className="w-5 block text-right font-semibold">{row.position}</span>
 
                   <span className="w-6 flex items-center justify-center">
                     <Link
-                      to={team.link}
-                      title={team.name}
+                      to={row.team.link}
+                      title={row.team.name}
                     >
                       <TeamLogo
-                        src={team.logo}
-                        alt={team.name}
+                        src={row.team.logo}
+                        alt={row.team.name}
                       />
                     </Link>
                   </span>
 
-                  <span className="block leading-none">{team.nameShort}</span>
+                  <span className="block leading-none">{row.team.nameShort}</span>
                 </div>
               </Cell>
-              <Cell className="text-right font-semibold">{team.countPoints ? team.countPoints : '-'}</Cell>
-              <Cell className="text-right">{team.countPlayed ? team.countPlayed : '-'}</Cell>
-              <Cell className="text-right">{team.countWon ? team.countWon : '-'}</Cell>
-              <Cell className="text-right">{team.countDrawn ? team.countDrawn : '-'}</Cell>
-              <Cell className="text-right">{team.countLost ? team.countLost : '-'}</Cell>
-              <Cell className="text-right">{team.countGoalsFor ? team.countGoalsFor : '-'}</Cell>
-              <Cell className="text-right">{team.countGoalsAgainst ? team.countGoalsAgainst : '-'}</Cell>
-              <Cell className="text-right">{team.countGoalsDifference > 0 ? `+${team.countGoalsDifference}` : team.countGoalsDifference ? team.countGoalsDifference : '-'}</Cell>
+              <Cell className="text-right font-semibold">{row.counts.points ? row.counts.points : '-'}</Cell>
+              <Cell className="text-right">{row.counts.played ? row.counts.played : '-'}</Cell>
+              <Cell className="text-right">{row.counts.won ? row.counts.won : '-'}</Cell>
+              <Cell className="text-right">{row.counts.drawn ? row.counts.drawn : '-'}</Cell>
+              <Cell className="text-right">{row.counts.lost ? row.counts.lost : '-'}</Cell>
+              <Cell className="text-right">{row.counts.goalsFor ? row.counts.goalsFor : '-'}</Cell>
+              <Cell className="text-right">{row.counts.goalsAgainst ? row.counts.goalsAgainst : '-'}</Cell>
+              <Cell className="text-right">{row.counts.goalsDifference > 0 ? `+${row.counts.goalsDifference}` : row.counts.goalsDifference ? row.counts.goalsDifference : '-'}</Cell>
             </Row>
           )}
         </StickyTable>

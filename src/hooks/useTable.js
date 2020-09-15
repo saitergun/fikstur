@@ -89,17 +89,24 @@ const useTable = (season) => {
       const countPoints = won.length * 3 + drawn.length;
 
       return {
-        id: team.id,
-        nameShort: team.nameShort,
-        logo: require(`../media/teams/logos/120x120/${team.id}.png`),
-        countPlayed: played.length,
-        countWon: won.length,
-        countDrawn: drawn.length,
-        countLost: lost.length,
-        countGoalsFor,
-        countGoalsAgainst,
-        countGoalsDifference,
-        countPoints,
+        team: {
+          id: team.id,
+          name: team.name,
+          nameShort: team.nameShort,
+          nameTff: team.nameTff,
+          link: `/team/${team.id}`,
+          logo: require(`../media/teams/logos/120x120/${team.id}.png`)
+        },
+        counts: {
+          played: played.length,
+          won: won.length,
+          drawn: drawn.length,
+          lost: lost.length,
+          goalsFor: countGoalsFor,
+          goalsAgainst: countGoalsAgainst,
+          goalsDifference: countGoalsDifference,
+          points: countPoints,
+        },
       }
     });
 
@@ -121,7 +128,7 @@ const useTable = (season) => {
       // }
 
       // if equal points
-      if (b.countPoints === a.countPoints) {
+      if (b.counts.points === a.counts.points) {
         // const counts = getTeamCountsHeadToHead(a.id, b.id);
 
         // if played two matches
@@ -136,14 +143,14 @@ const useTable = (season) => {
         // }
 
         // if equal goals difference
-        if (b.countGoalsDifference === a.countGoalsDifference) {
-          return b.countGoalsFor - a.countGoalsFor;
+        if (b.goalsDifference === a.goalsDifference) {
+          return b.goalsFor - a.goalsFor;
         }
 
-        return b.countGoalsDifference - a.countGoalsDifference;
+        return b.goalsDifference - a.goalsDifference;
       }
 
-      return b.countPoints - a.countPoints;
+      return b.counts.points - a.counts.points;
     });
 
     table = table.map((team, index) => ({
