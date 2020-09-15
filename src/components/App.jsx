@@ -11,7 +11,7 @@ import AppNavbar from './AppNavbar';
 
 import Editor from '../pages/editor/Index';
 import Fixture from '../pages/Fixture';
-import Table from '../pages/Table';
+import Table from '../pages/table/Index';
 import Team from '../pages/Team';
 
 const App = () => {
