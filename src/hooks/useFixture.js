@@ -24,14 +24,14 @@ const useFixture = (season, week) => {
 
   useEffect(() => {
     const getTeamById = (id) => {
-      const find = teams.find((t) => t.id === id);
+      const find = teams.find((team) => team.id === id);
   
       if (find) {
         return {
           id,
-          nameTff: find.nameTff,
           name: find.name,
           nameShort: find.nameShort,
+          nameTff: find.nameTff,
           link: `/team/${find.id}`,
           logo: require(`../media/teams/logos/120x120/${id}.png`)
         };
