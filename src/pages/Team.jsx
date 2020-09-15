@@ -39,16 +39,11 @@ const PageTeam = () => {
     <>
       <main className="sm:max-w-lg py-4 mx-auto">
         <header className="flex flex-row items-center space-x-4 bg-white border-t border-b sm:border border-gray-200 sm:rounded p-4">
-          <Link
-            to={team.link}
-            title={team.name}
-          >
-            <TeamLogo
-              src={team.logo}
-              alt={team.name}
-              size="lg"
-            />
-          </Link>
+          <TeamLogo
+            src={team.logo}
+            alt={team.name}
+            size="lg"
+          />
 
           <span className="block">
             <h1 className="text-3xl font-semibold">{team.name}</h1>
