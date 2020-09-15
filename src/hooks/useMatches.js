@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import 'dayjs/locale/tr';
 
 dayjs.extend(advancedFormat);
+dayjs.locale('tr');
 
-const useMatches = (season) => {
+const useMatches = (season = 20202021) => {
   const [matches, setMatches] = useState(() => {
     if (!season) {
       return [];
@@ -61,18 +63,20 @@ const useMatches = (season) => {
     }
   }, [season, matches, lastUpdatedAt, isChecking]);
 
-  return matches.map((match) => ({
-    id: match[0],
-    season: match[1],
-    week: match[2],
-    home: match[3],
-    away: match[4],
-    score: match[5] !== null && match[6] !== null ? {
-      home: match[5],
-      away: match[6],
-    } : null,
-    date: match[7] ? dayjs(match[7]) : null,
-  }))
+  return matches.map(([id, season, week, home, away, homeScore, awayScore, datetime]) => {
+    return {
+      id,
+      season,
+      week,
+      home,
+      away,
+      score: homeScore !== null && awayScore !== null ? {
+        home: homeScore,
+        away: awayScore,
+      } : null,
+      date: datetime ? dayjs(datetime) : null,
+    };
+  })
 };
 
 export default useMatches;
