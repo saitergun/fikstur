@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const TeamLogo = ({ src, alt, size }) => {
   const [width, setWidth] = useState('24px');
@@ -32,5 +33,17 @@ const TeamLogo = ({ src, alt, size }) => {
     </figure>
   );
 };
+
+TeamLogo.defaultProps = {
+  src: null,
+  alt: null,
+  size: null,
+}
+
+TeamLogo.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string,
+  size: PropTypes.oneOf(['md', 'lg']),
+}
 
 export default TeamLogo;
