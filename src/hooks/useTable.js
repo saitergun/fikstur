@@ -143,11 +143,11 @@ const useTable = (season) => {
         // }
 
         // if equal goals difference
-        if (b.goalsDifference === a.goalsDifference) {
-          return b.goalsFor - a.goalsFor;
+        if (b.counts.goalsDifference === a.counts.goalsDifference) {
+          return b.counts.goalsFor - a.counts.goalsFor;
         }
 
-        return b.goalsDifference - a.goalsDifference;
+        return b.counts.goalsDifference - a.counts.goalsDifference;
       }
 
       return b.counts.points - a.counts.points;
