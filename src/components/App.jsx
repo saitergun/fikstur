@@ -19,8 +19,10 @@ const App = () => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  const { season } = state.data;
+
   const teams = useFetchTeams();
-  const matches = useFetchMatches(state.data.season);
+  const matches = useFetchMatches(season);
 
   // set matches
   useLayoutEffect(() => {

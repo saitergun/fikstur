@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import useTable from '../../hooks/useTable';
 
@@ -7,8 +6,7 @@ import AppLoader from '../../components/AppLoader';
 import Table from './Table'
 
 const PageTable = () => {
-  const { season } = useSelector(state => state.data);
-  const table = useTable(season);
+  const table = useTable();
 
   useEffect(() => {
     window.scrollTo(0, 0);

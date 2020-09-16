@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-const useTable = (season) => {
+const useTable = () => {
   const [table, setTable] = useState([]);
 
   const { matches, teams } = useSelector((state) => state.data);
@@ -9,9 +9,6 @@ const useTable = (season) => {
   useEffect(() => {
     function getTeamPlayedMatches(teamId) {
       let played = matches;
-
-      // filter by season
-      played = played.filter((match) => match.season === season);
 
       // filter by score
       played = played.filter((match) => match.score);
@@ -163,7 +160,7 @@ const useTable = (season) => {
     return () => {
       setTable([]);
     };
-  }, [matches, teams, season]);
+  }, [matches, teams]);
 
   return table;
 }

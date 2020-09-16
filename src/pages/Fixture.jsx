@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { List, WindowScroller, AutoSizer } from 'react-virtualized';
-import { useSelector } from 'react-redux';
 
 import useFixture from '../hooks/useFixture';
 
@@ -16,9 +15,7 @@ const PageFixture = () => {
   const [weeks, setWeeks] = useState([]);
   const [firstScrollOk, setFirstScrollOk] = useState(false);
 
-  const state = useSelector(state => state);
-
-  const fixture = useFixture(state.data.season);
+  const fixture = useFixture();
 
   // init
   useEffect(() => {

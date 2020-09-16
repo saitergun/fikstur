@@ -10,12 +10,10 @@ const Hooks = () => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const { season } = state.data;
-
   const team = useTeam(state.data.teams?.[0].id);
   const match = useMatch(state.data.matches?.[0].id);
-  const table = useTable(season);
-  const fixture = useFixture(season);
+  const table = useTable();
+  const fixture = useFixture();
 
   return (
     <div className="grid grid-cols-2 gap-x-4 p-4">
@@ -27,7 +25,7 @@ const Hooks = () => {
 
         <button
           className="bg-white border-2 p-2"
-          onClick={() => dispatch({ type: 'SET_SEASON', payload: season === 20202021 ? 20192020 : 20202021 })}
+          onClick={() => dispatch({ type: 'SET_SEASON', payload: state.data.season === 20202021 ? 20192020 : 20202021 })}
         >SET_SEASON</button>
       </span>
 
