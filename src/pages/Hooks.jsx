@@ -15,7 +15,7 @@ const Hooks = () => {
   const team = useTeam(state.data.teams?.[0].id);
   const match = useMatch(state.data.matches?.[0].id);
   const table = useTable(season);
-  const fixture = useFixture();
+  const fixture = useFixture(season);
 
   return (
     <div className="grid grid-cols-2 gap-x-4 p-4">
