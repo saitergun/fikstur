@@ -10,8 +10,8 @@ const Hooks = () => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const team = useTeam(state.data.teams?.[0].id);
-  const match = useMatch(state.data.matches?.[0].id);
+  const team = useTeam(state.data?.teams?.[0]?.id);
+  const match = useMatch(state.data?.matches?.[0]?.id);
   const table = useTable();
   const fixture = useFixture();
 
