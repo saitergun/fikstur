@@ -13,6 +13,7 @@ import Editor from '../pages/editor/Index';
 import Fixture from '../pages/Fixture';
 import Table from '../pages/table/Index';
 import Team from '../pages/Team';
+import Hooks from '../pages/Hooks';
 
 const App = () => {
   const state = useSelector((state) => state);
@@ -60,6 +61,7 @@ const App = () => {
         <Route path='/team/:id' component={Team} />
 
         <Route path='/editor' component={Editor} />
+        <Route path='/hooks' component={Hooks} />
 
         <Route path='/'>
           <Redirect to="/fixture" />
