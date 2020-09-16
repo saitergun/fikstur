@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import useFetchTeams from '../hooks/useFetchTeams';
 import useFetchMatches from '../hooks/useFetchMatches';
+import useFetchTeams from '../hooks/useFetchTeams';
 
 import AppLoader from './AppLoader';
 import AppNavbar from './AppNavbar';
@@ -16,40 +15,36 @@ import Team from '../pages/Team';
 import Hooks from '../pages/Hooks';
 
 const App = () => {
+  const [matchesLoaded, setMatchesLoaded] = useState(false);
+  const [teamsLoaded, setTeamsLoaded] = useState(false);
+
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const { season } = state.data;
-
+  const matches = useFetchMatches(state.data.season);
   const teams = useFetchTeams();
-  const matches = useFetchMatches(season);
 
-  // set matches
   useLayoutEffect(() => {
-    if (state.data.matches.length === 0 && matches.length !== 0) {
+    setMatchesLoaded(false);
+  }, [state.data.season]);
+
+  useLayoutEffect(() => {
+    if (!matchesLoaded && matches.length > 0) {
       dispatch({ type: 'SET_MATCHES', payload: matches });
-    }
-  }, [dispatch, matches, state.data.matches.length]);
 
-  // set teams
+      setMatchesLoaded(true);
+    }
+  }, [dispatch, matches, matchesLoaded]);
+
   useLayoutEffect(() => {
-    if (state.data.teams.length === 0 && teams.length !== 0) {
+    if (!teamsLoaded && teams.length > 0) {
       dispatch({ type: 'SET_TEAMS', payload: teams });
+
+      setTeamsLoaded(true);
     }
-  }, [dispatch, teams, state.data.teams.length]);
+  }, [dispatch, teams, teamsLoaded]);
 
-  // set app loading status
-  useLayoutEffect(() => {
-    if (state.data.teams.length && state.data.matches.length) {
-      dispatch({ type: 'SET_APP_LOADING_STATUS', payload: false });
-    }
-  }, [dispatch, state.data.matches.length, state.data.teams.length]);
-
-  useEffect(() => {
-    document.title = 'Yükleniyor';
-  }, []);
-
-  if (state.app.loading) {
+  if (!matchesLoaded || !teamsLoaded) {
     return <AppLoader />;
   }
 
