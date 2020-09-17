@@ -9,7 +9,7 @@ import AppLoader from './AppLoader';
 import AppNavbar from './AppNavbar';
 
 import Editor from '../pages/editor/Index';
-import Fixture from '../pages/Fixture';
+import Fixture from '../pages/fixture/Index';
 import Table from '../pages/table/Index';
 import Team from '../pages/Team';
 import Hooks from '../pages/Hooks';

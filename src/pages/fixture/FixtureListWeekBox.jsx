@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import FixtureWeekItem from './FixtureWeekItem';
+import FixtureListWeekItem from './FixtureListWeekItem';
 
-const FixtureWeek = ({ days }) => {
+const FixtureListWeekBox = ({ days }) => {
   const [lastMatchId, setLastMatchId] = useState(null);
 
   useEffect(() => {
@@ -19,15 +20,23 @@ const FixtureWeek = ({ days }) => {
       </header>
 
       {days.map((matches) => matches.map((match, index) =>
-        <FixtureWeekItem
+        <FixtureListWeekItem
           key={match.id}
           match={match}
           isLastMatch={match.id === lastMatchId}
-          showMatchDate={index === 0 && match.date}
+          showMatchDate={index === 0 && match.date && true}
         />
       ))}
     </section>
   );
 };
 
-export default FixtureWeek;
+FixtureListWeekBox.defaultProps = {
+  days: [],
+};
+
+FixtureListWeekBox.propTypes = {
+  days: PropTypes.array,
+};
+
+export default FixtureListWeekBox;

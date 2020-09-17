@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 import classnames from 'classnames';
 
-import MatchModal from './MatchModal';
-import TeamLogo from './TeamLogo';
+import MatchModal from '../../components/MatchModal';
+import TeamLogo from '../../components/TeamLogo';
 
-const FixtureWeekMatchItem = ({ match, isLastMatch, showMatchDate }) => {
+const FixtureListWeekItem = ({ match, isLastMatch, showMatchDate }) => {
   const [showModal, setShowModal] = useState(false);
 
   if (!match) {
@@ -86,4 +86,16 @@ const FixtureWeekMatchItem = ({ match, isLastMatch, showMatchDate }) => {
   );
 };
 
-export default FixtureWeekMatchItem;
+FixtureListWeekItem.defaultProps = {
+  match: null,
+  isLastMatch: false,
+  showMatchDate: false,
+};
+
+FixtureListWeekItem.propTypes = {
+  match: PropTypes.object.isRequired,
+  isLastMatch: PropTypes.bool,
+  showMatchDate: PropTypes.bool,
+};
+
+export default FixtureListWeekItem;

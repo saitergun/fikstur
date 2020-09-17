@@ -1,64 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
+import PropTypes from 'prop-types';
 import { List, WindowScroller, AutoSizer } from 'react-virtualized';
 
-import useFixture from '../hooks/useFixture';
+import AppLoader from '../../components/AppLoader';
 
-import AppLoader from '../components/AppLoader';
-import FixtureWeek from '../components/FixtureWeek';
-import FixtureWeekPlaceholder from '../components/FixtureWeekPlaceholder';
+import FixtureListWeekBoxPlaceholder from './FixtureListWeekBoxPlaceHolder';
+import FixtureListWeekBox from './FixtureListWeekBox';
 
 const DEFAULT_WEEK_HEIGHT = 447; // withouts day height 447
 const WEEK_GAP = 32; // 2rem
 const DAY_TEXT_HEIGHT = 16; // one day text height 1rem
 
-const PageFixture = () => {
-  const [weeks, setWeeks] = useState([]);
+const FixtureList = ({ weeks }) => {
   const [firstScrollOk, setFirstScrollOk] = useState(false);
 
-  const fixture = useFixture();
-
   // init
-  useEffect(() => {
-    document.title = 'Fikstür';
-
+  useLayoutEffect(() => {
     return () => {
       setFirstScrollOk(false);
     };
   }, []);
 
-  // set weeks
-  useEffect(() => {
+  // set scrollTop
+  useLayoutEffect(() => {
     let scrollTop = Number(sessionStorage.getItem('fixture-saved:fixture-scollTop') ?? 0);
 
-    if (fixture.weeks.length) {
-      setTimeout(() => {
-        setWeeks(fixture.weeks);
-
+    if (weeks.length) {
+      // setTimeout(() => {
         if (scrollTop > 100) {
-          window.scrollTo(0, scrollTop);
+          window.scrollTo(0, scrollTop + 4);
         }
 
         setFirstScrollOk(true);
-      }, 5);
+      // }, 5);
     }
-  }, [fixture.weeks, fixture.nextWeekIndex]);
+  }, [weeks]);
 
   // List prop
   const rowRenderer = ({index, isScrolling, isVisible, key, style}) => {
-    if (!isVisible) {
-      return (
-        <span key={key} style={style}>
-          <FixtureWeekPlaceholder
-            week={weeks[index][0][0].week}
-            height={`${DEFAULT_WEEK_HEIGHT}px`}
-          />
-        </span>
-      );
-    }
-
     return (
       <span key={key} style={style}>
-        <FixtureWeek days={weeks[index]} />
+        {!isVisible &&
+          <FixtureListWeekBoxPlaceholder
+            week={weeks[index][0][0].week}
+            height={DEFAULT_WEEK_HEIGHT}
+          />
+        }
+
+        {isVisible &&
+          <FixtureListWeekBox
+            days={weeks[index]}
+          />
+        }
       </span>
     );
   };
@@ -81,14 +74,8 @@ const PageFixture = () => {
   // List prop
   const estimatedRowSize = DEFAULT_WEEK_HEIGHT + (DAY_TEXT_HEIGHT * 4) + WEEK_GAP;
 
-  if (!fixture.weeks.length) {
-    return (
-      <AppLoader />
-    );
-  }
-
   return (
-    <div className="relative sm:max-w-lg mx-auto">
+    <div>
       <WindowScroller>
         {({height, width, isScrolling, scrollTop, registerChild, onChildScroll}) => {
           if (firstScrollOk) {
@@ -126,4 +113,12 @@ const PageFixture = () => {
   );
 };
 
-export default PageFixture;
+FixtureList.defaultProps = {
+  weeks: [],
+}
+
+FixtureList.propTypes = {
+  weeks: PropTypes.array,
+}
+
+export default FixtureList;
