@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { List, WindowScroller, AutoSizer } from 'react-virtualized';
 
@@ -11,7 +11,7 @@ const DEFAULT_WEEK_HEIGHT = 447; // withouts day height 447
 const WEEK_GAP = 32; // 2rem
 const DAY_TEXT_HEIGHT = 16; // one day text height 1rem
 
-const FixtureList = ({ weeks }) => {
+const FixtureList = ({ weeks, scrollToWeek }) => {
   const [firstScrollOk, setFirstScrollOk] = useState(false);
 
   // init
@@ -25,16 +25,35 @@ const FixtureList = ({ weeks }) => {
   useLayoutEffect(() => {
     let scrollTop = Number(sessionStorage.getItem('fixture-saved:fixture-scollTop') ?? 0);
 
-    if (weeks.length) {
-      // setTimeout(() => {
-        if (scrollTop > 100) {
-          window.scrollTo(0, scrollTop + 4);
-        }
+    if (weeks.length > 0 && scrollTop > 60) {
+      window.scrollTo(0, scrollTop + 4);
+
+      setFirstScrollOk(true);
+    }
+  }, [weeks, scrollToWeek]);
+
+  // set scrollTop 2
+  useEffect(() => {
+    let scrollTop = Number(sessionStorage.getItem('fixture-saved:fixture-scollTop') ?? 0);
+
+    if (weeks.length > 0 && scrollTop === 0 && scrollToWeek > 0) {
+      setTimeout(() => {
+        const totalWeekHeight = (scrollToWeek - 1) * DEFAULT_WEEK_HEIGHT;
+        const totalGap = (scrollToWeek - 2) * WEEK_GAP;
+        const totalDaysHeight = weeks.filter((day) => day[0][0].week < scrollToWeek && day[0][0].date !== null).reduce((previousValue, currentValue) => previousValue + currentValue.length, 0) * DAY_TEXT_HEIGHT;
+        const marginTop = 4 * 8;
+        const totalHeight = totalWeekHeight + totalGap + totalDaysHeight + marginTop;
+  
+        window.scrollTo({
+          top: totalHeight,
+          left: 0,
+          behavior: 'smooth'
+        });
 
         setFirstScrollOk(true);
-      // }, 5);
+      }, 300);
     }
-  }, [weeks]);
+  }, [weeks, scrollToWeek]);
 
   // List prop
   const rowRenderer = ({index, isScrolling, isVisible, key, style}) => {
@@ -79,9 +98,12 @@ const FixtureList = ({ weeks }) => {
       <WindowScroller>
         {({height, width, isScrolling, scrollTop, registerChild, onChildScroll}) => {
           if (firstScrollOk) {
-            sessionStorage.setItem('fixture-saved:fixture-scollTop', scrollTop + 60);
+            if (scrollTop > 60) {
+              sessionStorage.setItem('fixture-saved:fixture-scollTop', scrollTop + 60);
+            } else {
+              sessionStorage.removeItem('fixture-saved:fixture-scollTop');
+            }
           }
-
           return (
             <AutoSizer>
               {({width}) => {
@@ -115,10 +137,12 @@ const FixtureList = ({ weeks }) => {
 
 FixtureList.defaultProps = {
   weeks: [],
+  scrollToWeek: 0,
 }
 
 FixtureList.propTypes = {
   weeks: PropTypes.array,
+  scrollToWeek: PropTypes.number
 }
 
 export default FixtureList;

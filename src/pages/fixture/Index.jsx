@@ -25,6 +25,7 @@ const PageFixture = () => {
     <div className="relative sm:max-w-lg mx-auto">
       <FixtureList
         weeks={fixtureWeeks}
+        scrollToWeek={fixture.nextWeekIndex}
       />
     </div>
   );

@@ -47,7 +47,7 @@ const useFixture = (week) => {
       weeks = weeks.filter((match) => match.week === week);
     }
 
-    setNextWeekIndex(weeks.find((match) => match.score)?.week ?? 0);
+    setNextWeekIndex(weeks.find((match) => !match.score)?.week ?? 0);
 
     // sort matches by date
     weeks = weeks.sort((a, b) => a.date && b.date && a.date.format('X') - b.date.format('X'));
