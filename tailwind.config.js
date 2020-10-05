@@ -32,6 +32,10 @@ module.exports = {
       spacing: {
         7: '1.75rem',
       },
+
+      minWidth: (theme) => ({
+        ...theme('spacing'),
+      }),
     },
   },
 

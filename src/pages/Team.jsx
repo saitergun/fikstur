@@ -57,36 +57,40 @@ const PageTeam = () => {
         <main className="bg-white border-t border-b sm:border border-gray-200 sm:rounded mt-4">
           <ul>
             {fixture.length > 0 && fixture.map((match, index) =>
-              <li className={classnames('flex flex-row items-center justify-between py-2 px-4 space-x-3', {
+              <li className={classnames('flex flex-row items-center justify-between py-2 px-4', {
                 'flex-row-reverse space-x-reverse': match.isAway,
                 'border-t border-gray-200': index > 0,
               })} key={match.id}>
-                <button
-                  className={classnames('w-12 h-6 flex items-center justify-center leading-none rounded-sm bg-white', {
-                    'text-white bg-purple-500 font-medium shadow': !match.result && match.score,
-                    'border font-medium': !match.result && !match.score,
-                    'text-white bg-green-500': match.result && match.result === 'W',
-                    'text-white bg-yellow-500': match.result && match.result === 'D',
-                    'text-white bg-red-500': match.result && match.result === 'L',
-                  })}
-                  onClick={() => setShowModal(match.id)}
-                >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? match.date.format('HH.mm') : '-'}</button>
+                <span className={classnames('flex flex-row items-center space-x-3', {
+                  'flex-row-reverse space-x-reverse': match.isAway,
+                })}>
+                  <button
+                    className={classnames('min-w-10 h-6 flex items-center justify-center leading-none rounded-sm bg-white px-2', {
+                      'text-white bg-purple-500 font-medium shadow': !match.result && match.score,
+                      'border font-medium': !match.result && !match.score,
+                      'text-white bg-green-500': match.result && match.result === 'W',
+                      'text-white bg-yellow-500': match.result && match.result === 'D',
+                      'text-white bg-red-500': match.result && match.result === 'L',
+                    })}
+                    onClick={() => setShowModal(match.id)}
+                  >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? match.date.format('D MMM') : `${match.week}.`}</button>
 
-                <Link
-                  to={match.team.link}
-                  title={match.team.name}
-                >
-                  <TeamLogo
-                    src={match.team.logo}
+                  <Link
+                    to={match.team.link}
                     title={match.team.name}
-                    href={match.team.link}
-                  />
-                </Link>
+                  >
+                    <TeamLogo
+                      src={match.team.logo}
+                      title={match.team.name}
+                      href={match.team.link}
+                    />
+                  </Link>
 
-                <Link
-                  to={match.team.link}
-                  title={match.team.nameTff}
-                >{match.team.name}</Link>
+                  <Link
+                    to={match.team.link}
+                    title={match.team.nameTff}
+                  >{match.team.name}</Link>
+                </span>
 
                 <span className={classnames('block flex-grow', {
                   'text-right': match.isHome,

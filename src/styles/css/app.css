@@ -1048,6 +1048,10 @@ video {
   max-width: 64rem;
 }
 
+.min-w-10 {
+  min-width: 2.5rem;
+}
+
 .focus\:outline-none:focus {
   outline: 0;
 }
