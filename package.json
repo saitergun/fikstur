@@ -22,7 +22,7 @@
     "redux": "^4.0.5"
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.0.1",
     "postcss-cli": "^8.1.0",
     "tailwindcss": "^1.9.5"
   },
