@@ -3834,10 +3834,10 @@ date-fns@^2.0.1:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.15.0.tgz#424de6b3778e4e69d3ff27046ec136af58ae5d5f"
   integrity sha512-ZCPzAMJZn3rNUvvQIMlXhDr4A+Ar07eLeGsGREoWU19a3Pqf5oYa+ccd+B3F6XVtQY6HANMFdOQ8A+ipFnvJdQ==
 
-dayjs@^1.8.35:
-  version "1.8.35"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.35.tgz#67118378f15d31623f3ee2992f5244b887606888"
-  integrity sha512-isAbIEenO4ilm6f8cpqvgjZCsuerDAz2Kb7ri201AiNn58aqXuaLJEnCtfIMdCvERZHNGRY5lDMTr/jdAnKSWQ==
+dayjs@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.3.tgz#b7f94b22ad2a136a4ca02a01ab68ae893fe1a268"
+  integrity sha512-V+1SyIvkS+HmNbN1G7A9+ERbFTV9KTXu6Oor98v2xHmzzpp52OIJhQuJSTywWuBY5pyAEmlwbCi1Me87n/SLOw==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
@@ -9390,10 +9390,10 @@ react-scripts@^3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
-react-sticky-table@^5.1.7:
-  version "5.1.7"
-  resolved "https://registry.yarnpkg.com/react-sticky-table/-/react-sticky-table-5.1.7.tgz#619672d7b08c95cb301f58bf52892c201a8fdd5e"
-  integrity sha512-RGnVpXCaXtJMl5cEMzcE9VimOYKreodcqLHVBHL4rirmr/1aZj/EWmDqbhC+hwJqkWQ60GV0FrBPdA+cXw1MCQ==
+react-sticky-table@^5.1.11:
+  version "5.1.11"
+  resolved "https://registry.yarnpkg.com/react-sticky-table/-/react-sticky-table-5.1.11.tgz#c5a8932dbe0d920c8c0344b689fdb466201637ea"
+  integrity sha512-E8S4vDzOJ3DlU99Yh5luj7b2TXcAWAn6roowh75oYvDG+tgMkBkPTLWq88bNmiHxKrjh2sTnijpMjl0u2nJKhw==
   dependencies:
     styled-components "^5.1.0"
 
