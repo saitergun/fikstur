@@ -58,8 +58,20 @@ const FixtureListWeekItem = ({ match, isLastMatch, showMatchDate }) => {
               'text-white bg-yellow-500': match.result && match.result === 'D',
               'text-white bg-red-500': match.result && match.result === 'L',
             })}
-            onClick={() => setShowModal(match.id)}
-          >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? `${match.date.HH}.${match.date.mm}` : '-'}</button>
+            onClick={() => {
+              console.log(JSON.stringify(match, null, 2));
+
+              setShowModal(match.id);
+            }}
+          >{
+            match?.others?.postponed
+              ? 'ERT.'
+              : match.score
+                ? `${match.score.home}·${match.score.away}`
+                : match.date
+                  ? `${match.date.HH}.${match.date.mm}`
+                  : '-'
+          }</button>
         </div>
 
         <div className="w-1/2 h-10 flex items-center justify-start space-x-3">

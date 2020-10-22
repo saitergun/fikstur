@@ -73,7 +73,15 @@ const PageTeam = () => {
                       'text-white bg-red-500': match.result && match.result === 'L',
                     })}
                     onClick={() => setShowModal(match.id)}
-                  >{match.score ? `${match.score.home}·${match.score.away}` : match.date ? match.date.format('D MMM') : `${match.week}.`}</button>
+                  >{
+                    match?.others?.postponed
+                      ? 'ERT.'
+                      : match.score
+                        ? `${match.score.home}·${match.score.away}`
+                        : match.date
+                          ? match.date.format('D MMM')
+                          : `${match.week}.`
+                  }</button>
 
                   <Link
                     to={match.team.link}

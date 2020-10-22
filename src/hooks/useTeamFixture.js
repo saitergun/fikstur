@@ -50,6 +50,7 @@ const useTeamFixture = (id = 0) => {
           },
           score: mm.score,
           date: mm.date ? dayjs(mm.date) : null,
+          others: mm.others,
           result,
         };
       }

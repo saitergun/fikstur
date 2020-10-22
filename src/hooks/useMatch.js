@@ -34,7 +34,8 @@ const useMatch = (id = 0) => {
           logo: require(`../media/teams/logos/120x120/${away.id}.png`)
         },
         score: find.score,
-        date: find.date
+        date: find.date,
+        others: find.others,
       });
     } else {
       setMatch(null);

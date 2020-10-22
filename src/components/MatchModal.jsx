@@ -38,9 +38,17 @@ const MatchModal = ({ id, close }) => {
         </header>
 
         <main className="py-4">
+          {match?.others?.postponed &&
+            <span
+              className="block text-center mb-1"
+            ><span className="inline-block leading-none text-red-700 bg-red-100 p-1 rounded">Ertelendi</span></span>
+          }
+
           {match.date &&
             <time
-              className="block text-center"
+              className={classnames('block text-center', {
+                'line-through': match?.others?.postponed
+              })}
               dateTime={match.date.format('YYYYY-MM-DDTHH:mmZ')}
             >{match.date.format('D MMMM YYYY dddd, HH.mm')}</time>
           }
