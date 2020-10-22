@@ -6,7 +6,7 @@ const useFetchMatches = (season = 20202021) => {
 
   useEffect(() => {
     if (window.navigator.onLine) {
-      fetch(`https://raw.githubusercontent.com/saitergun/fikstur/master/public/data/matches/${season}.json`)
+      fetch(`/data/matches/${season}.json`)
         .then((response) => response.json())
         .then((response) => {
           window.localStorage.setItem(`fikstur:saved-matches-${season}`, JSON.stringify(response.rows));
