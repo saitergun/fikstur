@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import classnames from 'classnames';
@@ -18,9 +18,35 @@ dayjs.extend(advancedFormat);
 registerLocale('tr', tr);
 
 const EditorMatchWeekTableRow = ({ match, setMatch }) => {
-  const [localeMatch, setLocaleMatch] = useState({...match});
+  const [localeMatch, setLocaleMatch] = useState(match ? {...match} : null);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const teams = useSelector(state => state.data.teams);
+
+  useEffect(() => {
+    const equal = isEqual(JSON.stringify(match), JSON.stringify(localeMatch));
+
+    setIsUpdated(!equal);
+  }, [match, localeMatch]);
+
+  const updateMatchPostponeStatus = (e) => {
+    if (e.currentTarget.checked) {
+      setLocaleMatch({
+        ...localeMatch,
+        others: {
+          postponed: true,
+        }
+      });
+    } else {
+      const { others, ...properties } = localeMatch;
+
+      setLocaleMatch(properties);
+    }
+  };
+
+  if (!localeMatch) {
+    return null;
+  }
 
   return (
     <>
@@ -127,20 +153,37 @@ const EditorMatchWeekTableRow = ({ match, setMatch }) => {
           </span>
         </td>
 
+        <td className="border" width="75">
+          <span className="p-1">
+            <label className={classnames('inline-flex items-center justify-center space-x-2 cursor-pointer select-none p-1', {
+              'bg-yellow-200': match?.others?.postponed !== localeMatch?.others?.postponed 
+            })}>
+              <input
+                type="checkbox"
+                checked={localeMatch?.others?.postponed ?? false}
+                value={true}
+                onChange={updateMatchPostponeStatus}
+              />
+
+              <span className="inline-block leading-none text-sm">ERT.</span>
+            </label>
+          </span>
+        </td>
+
         <td className={classnames('border text-center')} width="160">
           <button
             className={classnames('active:bg-gray-200 shadow-xs rounded-sm leading-none text-xs m-1 py-1 px-2 focus:outline-none', {
-              'bg-gray-100 text-gray-400 cursor-not-allowed': isEqual(match, localeMatch)
+              'bg-gray-100 text-gray-400 cursor-not-allowed': !isUpdated
             })}
-            disabled={isEqual(match, localeMatch)}
+            disabled={!isUpdated}
             onClick={() => setLocaleMatch({...match})}
           >VAZGEÇ</button>
 
           <button
             className={classnames('active:bg-gray-200 shadow-xs rounded-sm leading-none text-xs m-1 py-1 px-2 focus:outline-none font-bold', {
-              'bg-gray-100 text-gray-400 cursor-not-allowed': isEqual(match, localeMatch)
+              'bg-gray-100 text-gray-400 cursor-not-allowed': !isUpdated
             })}
-            disabled={isEqual(match, localeMatch)}
+            disabled={!isUpdated}
             onClick={() => setMatch(localeMatch)}
           >GÜNCELLE</button>
         </td>

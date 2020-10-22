@@ -29,20 +29,28 @@ const PageEditor = () => {
   // set matches, weeks
   useEffect(() => {
     if (matches === null && stateMatches.length > 0) {
-      const rows = stateMatches.map((match) => ([
-        match.id,
-        match.season,
-        match.week,
-        match.home,
-        match.away,
-        match.score ? match.score.home : null,
-        match.score ? match.score.away : null,
-        match.date ? match.date.format('YYYY-MM-DD HH:mm') : null
-      ]));
+      const rows = stateMatches.map((match) => {
+        const mapped = [
+          match.id,
+          match.season,
+          match.week,
+          match.home,
+          match.away,
+          match.score ? match.score.home : null,
+          match.score ? match.score.away : null,
+          match.date ? match.date.format('YYYY-MM-DD HH:mm') : null,
+        ];
+
+        if (match.others) {
+          mapped.push(match.others);
+        }
+
+        return mapped;
+      });
 
       // set matches
       setMatches({
-        columns: ['id', 'season', 'week', 'home', 'away', 'homeScore', 'awayScore', 'datetime'],
+        columns: ['id', 'season', 'week', 'home', 'away', 'homeScore', 'awayScore', 'datetime', 'others'],
         rows,
         updatedAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
       });
@@ -66,6 +74,12 @@ const PageEditor = () => {
       thisMatch[5] = match.homeScore;
       thisMatch[6] = match.awayScore;
       thisMatch[7] = match.date;
+
+      if (match.others) {
+        thisMatch[8] = match.others;
+      } else if (thisMatch[8] && !match.others) {
+        thisMatch.pop();
+      }
 
       setMatches(matchesCopy);
 

@@ -25,8 +25,8 @@ const useFetchMatches = (season = 20202021) => {
     }
   }, [season]);
 
-  return matches.map(([id, season, week, home, away, homeScore, awayScore, datetime]) => {
-    return {
+  return matches.map(([id, season, week, home, away, homeScore, awayScore, datetime, others]) => {
+    const mapped = {
       id,
       season,
       week,
@@ -38,6 +38,12 @@ const useFetchMatches = (season = 20202021) => {
       } : null,
       date: datetime ? dayjs(datetime) : null,
     };
+
+    if (others) {
+      mapped.others = others;
+    }
+
+    return mapped;
   })
 };
 

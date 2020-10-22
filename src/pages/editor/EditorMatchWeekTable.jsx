@@ -20,7 +20,7 @@ const EditorMatchWeekTable = ({ matches, setMatch }) => {
     >
       <thead>
         <tr>
-          <th className="border px-4 py-1 bg-gray-100 leading-none text-xs" colSpan="7">week {matches[0][2]}</th>
+          <th className="border px-4 py-1 bg-gray-100 leading-none text-xs" colSpan="8">week {matches[0][2]}</th>
         </tr>
 
         <tr>
@@ -30,16 +30,17 @@ const EditorMatchWeekTable = ({ matches, setMatch }) => {
           <th className="border px-4 py-1 bg-gray-100 leading-none text-xs">HS</th>
           <th className="border px-4 py-1 bg-gray-100 leading-none text-xs">AS</th>
           <th className="border px-4 py-1 bg-gray-100 leading-none text-xs">date</th>
+          <th className="border px-4 py-1 bg-gray-100 leading-none text-xs">others</th>
           <th className="border px-4 py-1 bg-gray-100 leading-none text-xs"></th>
         </tr>
       </thead>
 
       <tbody>
-        {matches?.length > 0 && matches.sort(sortMatches).map(([id, season, week, home, away, homeScore, awayScore, date]) => {
+        {matches?.length > 0 && matches.sort(sortMatches).map(([id, season, week, home, away, homeScore, awayScore, date, others]) => {
           return (
             <EditorMatchWeekTableRow
               key={id}
-              match={{id, season, week, home, away, homeScore, awayScore, date}}
+              match={{id, season, week, home, away, homeScore, awayScore, date, others}}
               setMatch={(match) => setMatch(match)}
             />
           )
