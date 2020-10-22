@@ -58,11 +58,7 @@ const FixtureListWeekItem = ({ match, isLastMatch, showMatchDate }) => {
               'text-white bg-yellow-500': match.result && match.result === 'D',
               'text-white bg-red-500': match.result && match.result === 'L',
             })}
-            onClick={() => {
-              console.log(JSON.stringify(match, null, 2));
-
-              setShowModal(match.id);
-            }}
+            onClick={() => setShowModal(match.id)}
           >{
             match?.others?.postponed
               ? 'ERT.'
