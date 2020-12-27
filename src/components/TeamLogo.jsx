@@ -16,7 +16,7 @@ const TeamLogo = ({ src, alt, size }) => {
         setHeight('72px');
         break;
       default:
-    }
+    };
   }, [size]);
 
   if (!src) {
@@ -38,12 +38,12 @@ TeamLogo.defaultProps = {
   src: null,
   alt: null,
   size: null,
-}
+};
 
 TeamLogo.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
   size: PropTypes.oneOf(['md', 'lg']),
-}
+};
 
 export default TeamLogo;
