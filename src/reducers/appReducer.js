@@ -1,6 +1,9 @@
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 const initialState = {
   name: 'fikstür',
   url: window.location.origin + window.location.pathname,
+  dirPublic: isDevelopment ? '/' : 'https://raw.githubusercontent.com/saitergun/fikstur/master/public/',
 
   loading: true,
   loadingErrorText: null,
