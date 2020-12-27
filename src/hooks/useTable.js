@@ -92,7 +92,7 @@ const useTable = () => {
           nameShort: team.nameShort,
           nameTff: team.nameTff,
           link: `/team/${team.id}`,
-          logo: require(`../media/teams/logos/120x120/${team.id}.png`),
+          logo: require(`../media/teams/logos/120x120/${team.id}.png`).default,
         },
         counts: {
           played: played.length,

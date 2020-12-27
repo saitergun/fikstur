@@ -23,7 +23,7 @@ const useMatch = (id = 0) => {
           name: home.name,
           nameShort: home.nameShort,
           link: `/team/${home.id}`,
-          logo: require(`../media/teams/logos/120x120/${home.id}.png`),
+          logo: require(`../media/teams/logos/120x120/${home.id}.png`).default,
         },
         away: {
           id: away.id,
@@ -31,7 +31,7 @@ const useMatch = (id = 0) => {
           name: away.name,
           nameShort: away.nameShort,
           link: `/team/${away.id}`,
-          logo: require(`../media/teams/logos/120x120/${away.id}.png`),
+          logo: require(`../media/teams/logos/120x120/${away.id}.png`).default,
         },
         score: find.score,
         date: find.date,

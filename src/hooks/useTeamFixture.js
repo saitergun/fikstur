@@ -46,7 +46,7 @@ const useTeamFixture = (id = 0) => {
             name: team.name,
             nameShort: team.nameShort,
             link: `/team/${team.id}`,
-            logo: require(`../media/teams/logos/120x120/${team.id}.png`),
+            logo: require(`../media/teams/logos/120x120/${team.id}.png`).default,
           },
           score: mm.score,
           date: mm.date ? dayjs(mm.date) : null,

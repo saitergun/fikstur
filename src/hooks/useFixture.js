@@ -33,7 +33,7 @@ const useFixture = (week) => {
           nameShort: find.nameShort,
           nameTff: find.nameTff,
           link: `/team/${find.id}`,
-          logo: require(`../media/teams/logos/120x120/${id}.png`),
+          logo: require(`../media/teams/logos/120x120/${id}.png`).default,
         };
       }
   
