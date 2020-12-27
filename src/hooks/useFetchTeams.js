@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const useFetchTeams = () => {
   const [teams, setTeams] = useState([]);
 
+  const state = useSelector(state => state);
+
   useEffect(() => {
     if (window.navigator.onLine) {
-      fetch('/data/teams.json')
+      fetch(`${state.app.dirPublic}data/teams.json`)
         .then((response) => response.json())
         .then((response) => {
           window.localStorage.setItem('fikstur:saved-teams', JSON.stringify(response.rows));
@@ -22,7 +25,7 @@ const useFetchTeams = () => {
         setTeams([]);
       }
     }
-  }, []);
+  }, [state.app.dirPublic]);
 
   return teams.map(([id, name, nameShort, nameTff]) => ({
     id,
