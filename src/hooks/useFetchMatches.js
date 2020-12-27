@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 
 const useFetchMatches = (season = 20202021) => {
   const [matches, setMatches] = useState([]);
 
+  const state = useSelector(state => state);
+
   useEffect(() => {
     if (window.navigator.onLine) {
-      fetch(`/data/matches/${season}.json`)
+      fetch(`${state.app.dirPublic}data/matches/${season}.json`)
         .then((response) => response.json())
         .then((response) => {
           window.localStorage.setItem(`fikstur:saved-matches-${season}`, JSON.stringify(response.rows));
@@ -23,7 +26,7 @@ const useFetchMatches = (season = 20202021) => {
         setMatches([]);
       }
     }
-  }, [season]);
+  }, [season, state.app.dirPublic]);
 
   return matches.map(([id, season, week, home, away, homeScore, awayScore, datetime, others]) => {
     const mapped = {
