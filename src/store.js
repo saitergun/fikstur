@@ -8,7 +8,7 @@ import dataReducer from './reducers/dataReducer';
 
 const reducers = {
   app: appReducer,
-  data: dataReducer
+  data: dataReducer,
 };
 
 const combinedReducer = combineReducers(reducers);
@@ -20,15 +20,15 @@ export const StoreProvider = (props) => {
     <Provider store={store}>
       { props.children }
     </Provider>
-  )
+  );
 };
 
 StoreProvider.defaultProps = {
-  children: null
-}
+  children: null,
+};
 
 StoreProvider.propTypes = {
-  children: node
-}
+  children: node,
+};
 
 export default store;

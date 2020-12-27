@@ -1,7 +1,7 @@
 const initialState = {
   teams: [],
   matches: [],
-  season: 20202021
+  season: 20202021,
 };
 
 const dataReducer = (state = initialState, { type, payload }) => {
@@ -20,7 +20,7 @@ const dataReducer = (state = initialState, { type, payload }) => {
       return {...state};
     default:
       return state;
-  }
-}
+  };
+};
 
 export default dataReducer;

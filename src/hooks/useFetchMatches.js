@@ -47,7 +47,7 @@ const useFetchMatches = (season = 20202021) => {
     }
 
     return mapped;
-  })
+  });
 };
 
 export default useFetchMatches;

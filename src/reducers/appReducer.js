@@ -21,7 +21,7 @@ const appReducer = (state = initialState, { type, payload }) => {
       return {...state};
     default:
       return state;
-  }
-}
+  };
+};
 
 export default appReducer;

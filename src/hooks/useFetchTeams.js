@@ -33,8 +33,8 @@ const useFetchTeams = () => {
     nameShort,
     nameTff,
     link: `/team/${id}`,
-    logo: require(`../media/teams/logos/120x120/${id}.png`)
-  }))
+    logo: require(`../media/teams/logos/120x120/${id}.png`),
+  }));
 };
 
 export default useFetchTeams;

@@ -33,7 +33,7 @@ const useTable = () => {
           isAway,
           isWin: (isHome && isHomeWin) || (isAway && isAwayWin),
           isLost: (isHome && isAwayWin) || (isAway && isHomeWin),
-          isDrawn
+          isDrawn,
         };
       });
 
@@ -92,7 +92,7 @@ const useTable = () => {
           nameShort: team.nameShort,
           nameTff: team.nameTff,
           link: `/team/${team.id}`,
-          logo: require(`../media/teams/logos/120x120/${team.id}.png`)
+          logo: require(`../media/teams/logos/120x120/${team.id}.png`),
         },
         counts: {
           played: played.length,
@@ -153,7 +153,7 @@ const useTable = () => {
     table = table.map((team, index) => ({
       position: index + 1,
       ...team,
-    }))
+    }));
 
     setTable(table);
 
