@@ -8,7 +8,7 @@ const useFetchTeams = () => {
 
   useEffect(() => {
     if (window.navigator.onLine) {
-      fetch(`${state.app.dirPublic}data/teams.json`)
+      fetch(`${state.app.dirPublic}data/teams.json?version=${Date.now()}`)
         .then((response) => response.json())
         .then((response) => {
           window.localStorage.setItem('fikstur:saved-teams', JSON.stringify(response.rows));

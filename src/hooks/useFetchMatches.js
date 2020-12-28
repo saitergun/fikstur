@@ -12,7 +12,7 @@ const useFetchMatches = (season = 20202021) => {
       fetch(`${state.app.dirPublic}data/matches/${season}.json`)
         .then((response) => response.json())
         .then((response) => {
-          window.localStorage.setItem(`fikstur:saved-matches-${season}`, JSON.stringify(response.rows));
+          window.localStorage.setItem(`fikstur:saved-matches-${season}?version=${Date.now()}`, JSON.stringify(response.rows));
 
           setMatches(response.rows);
         })
