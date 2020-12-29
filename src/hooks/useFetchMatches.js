@@ -9,10 +9,10 @@ const useFetchMatches = (season = 20202021) => {
 
   useEffect(() => {
     if (window.navigator.onLine) {
-      fetch(`${state.app.dirPublic}data/matches/${season}.json`)
+      fetch(`${state.app.dirPublic}data/matches/${season}.json?version=${Date.now()}`)
         .then((response) => response.json())
         .then((response) => {
-          window.localStorage.setItem(`fikstur:saved-matches-${season}?version=${Date.now()}`, JSON.stringify(response.rows));
+          window.localStorage.setItem(`fikstur:saved-matches-${season}`, JSON.stringify(response.rows));
 
           setMatches(response.rows);
         })
